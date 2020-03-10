@@ -4,6 +4,7 @@ import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import Grid from '@material-ui/core/Grid';
 import { Paper } from '@material-ui/core';
+import Login from './login';
 
 
 
@@ -41,6 +42,7 @@ function Navbar() {
       <BottomNavigationAction label="Create" />
       <BottomNavigationAction label="Play" />
       <BottomNavigationAction label="My Stuff" />
+      <Login/>
     </BottomNavigation>
     </Paper>
     </Grid>

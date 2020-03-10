@@ -17,7 +17,6 @@ function Play() {
               Play
             </h1>
           </Grid>
-        <Navbar/>
       </Grid>
     )
 }

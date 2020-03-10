@@ -17,7 +17,6 @@ function MyStuff() {
               My Stuff
             </h1>
           </Grid>
-        <Navbar/>
       </Grid>
     )
 }

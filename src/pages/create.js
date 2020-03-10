@@ -14,10 +14,9 @@ function Create() {
         <Navbar/>
           <Grid direction='column' justify='center' alignItems='center' style={{padding: "20px 20px 20px 20px"}}>
             <h1 align="center" >
-              Home
+              Create
             </h1>
           </Grid>
-        <Navbar/>
       </Grid>
     )
 }

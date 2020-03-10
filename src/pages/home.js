@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { Paper } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import Navbar from './../components/navbar';
+import { UserContext } from './../userContext';
 
 
 
 
 
 function Home() {
+
+    const context = useContext(UserContext);
+
     return (
       <Grid>
         <Navbar/>
@@ -17,7 +21,6 @@ function Home() {
               Home
             </h1>
           </Grid>
-        <Navbar/>
       </Grid>
     )
 }

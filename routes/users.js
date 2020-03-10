@@ -23,7 +23,7 @@ router.get('/id/', async (req, res) => {
 
 // Creating one
 router.post('/', async (req, res) => {
-  console.log(req)
+  //console.log(req)
   const user = new User({
     name: req.query.name,
     email: req.query.email
