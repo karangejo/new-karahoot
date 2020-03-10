@@ -9,14 +9,14 @@ import { UserContext } from './../userContext';
 
 
 
-function MyStuff() {
+function Host() {
 
   const context = useContext(UserContext);
 
   const loggedInView = () => {
     return(
         <div>
-          Show the created games from this user
+          Show the hosting game scren for this game for this user
         </div>
     );
   }
@@ -24,7 +24,7 @@ function MyStuff() {
   const loggedOutView = () => {
     return(
       <div>
-        <Alert severity="info">Please Login to see your games!</Alert>
+        <Alert severity="info">Please Login to host a game!</Alert>
       </div>
     );
   }
@@ -47,4 +47,4 @@ function MyStuff() {
     );
 }
 
-export default MyStuff;
+export default Host;

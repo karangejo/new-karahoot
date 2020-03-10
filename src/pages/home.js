@@ -18,7 +18,7 @@ function Home() {
         <Navbar/>
           <Grid direction='column' justify='center' alignItems='center' style={{padding: "20px 20px 20px 20px"}}>
             <h1 align="center" >
-              Home
+              QUIZZAZ
             </h1>
           </Grid>
       </Grid>

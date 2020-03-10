@@ -44,30 +44,30 @@ function Login () {
         }
 
         const responseGoogle =  (response) => {
-          console.log(response);
+        //  console.log(response);
           const email = response.profileObj.email;
           const name = response.profileObj.name;
           const logged = true;
           var userID = ''
-          console.log(context);
+          //console.log(context);
           // check if the user is in the database if not then add a new user
           const baseURL = 'http://localhost:3001/users/?email='
           const queryURL = baseURL + email;
-          console.log(queryURL);
+        //  console.log(queryURL);
           //first check if user is in the database
           axios.get(queryURL)
                     .then((res) => {
-                      console.log(res);
-                      console.log(res.data.length);
+                    //  console.log(res);
+                      //console.log(res.data.length);
                       // if user is not in the database
                       if(res.data.length === 0){
                         //save user to database
-                        console.log("saving user to database");
+                      console.log("saving user to database");
                         const postURL = baseURL + email +'&name=' + name
-                        console.log(postURL);
+                    //    console.log(postURL);
                         axios.post(postURL)
                           .then((res) => {
-                            console.log(res);
+                      //      console.log(res);
                             console.log("saved user to database");
                             userID = res.data._id;
                           })
@@ -99,7 +99,7 @@ function Login () {
         }
 
         const logout = (response) => {
-          console.log(response);
+          //console.log(response);
           context.setUser({});
           context.setLoggedIn(false);
         }

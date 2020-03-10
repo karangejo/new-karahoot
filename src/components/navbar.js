@@ -31,22 +31,26 @@ function Navbar() {
   }
 
   return (
-    <div>
-    <Grid container direction='column' justify='center' alignItems='center' style={{width: "100%"}} >
+
+    <Grid direction='column' justify='center' alignItems='center' style={{width: "100%", padding: "20px 20px 20px 20px"}} >
     <Paper style={{width: "100%"}}>
+      <div align="center">
+        <Login/>
+      </div>
       <BottomNavigation
       onChange={handleClick}
       showLabels
       >
-      <BottomNavigationAction label="Home" />
-      <BottomNavigationAction label="Create" />
-      <BottomNavigationAction label="Play" />
-      <BottomNavigationAction label="My Stuff" />
-      <Login/>
-    </BottomNavigation>
+        <BottomNavigationAction label="Home" />
+        <BottomNavigationAction label="Create" />
+        <BottomNavigationAction label="Play" />
+        <BottomNavigationAction label="My Stuff" />
+
+      </BottomNavigation>
+
     </Paper>
     </Grid>
-    </div>
+
   );
 };
 
