@@ -1,22 +1,26 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import { Paper } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import Box from '@material-ui/core/Box';
 import Navbar from './../components/navbar';
+import TestDisplay from './../components/testDisplay';
 import { UserContext } from './../userContext';
 
 
 
 
 function MyStuff() {
+  const [tests, setTests] = useState({});
 
   const context = useContext(UserContext);
+
 
   const loggedInView = () => {
     return(
         <div>
-          Show the created games from this user
+          <TestDisplay/>
         </div>
     );
   }
@@ -40,7 +44,7 @@ function MyStuff() {
     return (
       <Grid>
         <Navbar/>
-          <Grid  direction='row' justify='center' alignItems='center' style={{padding: "20px 20px 20px 20px"}}>
+          <Grid  container direction='row' justify='center' alignItems='center' style={{padding: "20px 20px 20px 20px"}}>
             {checkLogin()}
           </Grid>
       </Grid>

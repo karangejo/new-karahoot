@@ -1,24 +1,47 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import { useHistory } from "react-router-dom";
 import Grid from '@material-ui/core/Grid';
 import { Paper } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
-import Box from '@material-ui/core/Box';
 import Navbar from './../components/navbar';
 import { UserContext } from './../userContext';
-
+import HostDisplay from './../components/hostDisplay';
 
 
 
 function Host() {
 
+  const [questions, setQuestions] = useState([]);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [timeLimit, setTimeLimit] = useState(30);
+
   const context = useContext(UserContext);
 
-  const loggedInView = () => {
+  const history = useHistory();
+
+
+  const currentGameView = () => {
     return(
-        <div>
-          Show the hosting game scren for this game for this user
-        </div>
+          <HostDisplay game={context.currentGame}/>
     );
+  }
+
+  const noCurrentGame = () => {
+    console.log("no current game");
+    history.push("/mystuff")
+  }
+
+  function isEmpty(obj) {
+    return Object.keys(obj).length === 0;
+  }
+
+  const loggedInView = () => {
+    //console.log(context.currentGame);
+    if(!(isEmpty(context.currentGame))){
+      return(currentGameView());
+    } else {
+      noCurrentGame()
+    }
   }
 
   const loggedOutView = () => {
@@ -40,7 +63,7 @@ function Host() {
     return (
       <Grid>
         <Navbar/>
-          <Grid  direction='row' justify='center' alignItems='center' style={{padding: "20px 20px 20px 20px"}}>
+          <Grid  container direction='row' justify='center' alignItems='center' style={{padding: "20px 20px 20px 20px"}}>
             {checkLogin()}
           </Grid>
       </Grid>

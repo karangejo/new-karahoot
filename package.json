@@ -12,6 +12,7 @@
     "express": "^4.17.1",
     "mongoose": "^5.9.4",
     "react": "^16.13.0",
+    "react-countdown-now": "^2.1.2",
     "react-dom": "^16.13.0",
     "react-google-login": "^5.1.1",
     "react-router-dom": "^5.1.2",

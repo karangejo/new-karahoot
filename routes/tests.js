@@ -12,26 +12,55 @@ router.get('/', async (req, res) => {
     res.status(500).json({ message: err.message })
   }
 })
-
+/*
 // Getting One
 router.get('/:id', getTest, (req, res, next) => {
   res.json(res.test)
 })
+*/
+// get all tests by ownerID
+router.get('/id', async (req, res) => {
+  try {
+    //console.log(req.query);
+    tests = await Test.find({owner: req.query.id});
+    res.status(200).json(tests);
+    if (tests == null) {
+      return res.status(404).json({ message: 'Cannot find test' });
+    }
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: err.message });
+  }
+})
 
 // Creating one
 router.post('/', async function(req, res){
-  console.log(req);
   const testToSave = new Test({
     title: req.body.title,
     owner: req.body.owner,
     numberOfQuestions: req.body.numberOfQuestions,
     questions: req.body.questions
   })
+  console.log(testToSave);
   try {
     const newTest = await testToSave.save()
+    //console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+    //console.log(newTest);
     res.status(201).json(newTest)
   } catch (err) {
+    console.log(err);
     res.status(400).json({ message: err.message })
+  }
+})
+
+//delete by test ID
+router.post('/deletebyid', async (req, res) => {
+  try {
+    const deleted = await Test.findByIdAndDelete(req.body.id);
+    console.log(deleted);
+    res.json({ message: 'Deleted Test' , deleted: deleted});
+  } catch (err) {
+    res.status(500).json({ message: err.message })
   }
 })
 
@@ -52,6 +81,7 @@ router.post('/', async function(req, res){
 //})
 
 // Deleting One
+/*
 router.delete('/:id', getTest, async (req, res) => {
   try {
     await res.test.remove()
@@ -60,7 +90,7 @@ router.delete('/:id', getTest, async (req, res) => {
     res.status(500).json({ message: err.message })
   }
 })
-
+*/
 async function getTest(req, res, next) {
   let test
   try {

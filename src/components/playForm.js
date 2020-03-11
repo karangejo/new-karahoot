@@ -17,7 +17,7 @@ function PlayForm(props) {
     }
 
     return (
-      <Grid direction='row' style={{padding: "20px 20px 20px 20px"}}>
+      <Grid container direction='column' justify='center' alignItems='center' style={{padding: "20px 20px 20px 20px"}}>
         <form noValidate autoComplete="off">
           <TextField id="0"  variant="outlined" label="Name" onChange={(event) => {setName(event.target.value);}}/> <br/>
           <TextField id="1"  variant="outlined" label="Connection" onChange={(event) => {setConnection(event.target.value);}}/> <br/>

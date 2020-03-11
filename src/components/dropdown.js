@@ -34,18 +34,18 @@ export default function Dropdown(props) {
 
 
   return (
-    <div>
-      <FormControl>
+      <FormControl size="medium" fullWidth={true}>
         <InputLabel id="demo-simple-select-label">Answer</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={answer}
           onChange={handleChange}
+          autoWidth={true}
+          variant="outlined"
         >
           {displayMenuItems()}
         </Select>
       </FormControl>
-    </div>
   );
 }

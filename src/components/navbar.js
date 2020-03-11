@@ -32,7 +32,7 @@ function Navbar() {
 
   return (
 
-    <Grid direction='column' justify='center' alignItems='center' style={{width: "100%", padding: "20px 20px 20px 20px"}} >
+    <Grid container direction='column' justify='center' alignItems='center' style={{width: "100%", padding: "20px 20px 20px 20px"}} >
     <Paper style={{width: "100%"}}>
       <div align="center">
         <Login/>

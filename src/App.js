@@ -13,7 +13,8 @@ function App() {
 
   const [user, setUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
-  const value = useMemo(() => ({user, setUser, loggedIn, setLoggedIn}), [user, setUser, loggedIn, setLoggedIn]);
+  const [currentGame, setCurrentGame] = useState({})
+  const value = useMemo(() => ({user, setUser, loggedIn, setLoggedIn, currentGame, setCurrentGame}), [user, setUser, loggedIn, setLoggedIn, currentGame, setCurrentGame]);
 
   return (
     <div className="App">

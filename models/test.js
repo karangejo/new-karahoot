@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-
+/*
 const questionSchema = new mongoose.Schema({
   index: {
     type: String,
@@ -30,7 +30,7 @@ const questionSchema = new mongoose.Schema({
     required: true
   }
 })
-
+*/
 const testSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -45,7 +45,7 @@ const testSchema = new mongoose.Schema({
     required: true
   },
   questions: {
-    type: [questionSchema],
+    type: [],
     required: true
   }
 })
