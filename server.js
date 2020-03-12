@@ -1,69 +1,38 @@
-const io = require ( 'socket.io' ) ( );
+const io = require('socket.io')();
 //const mongoose = require('mongoose');
 
 // connect to the database and create it if it does not exist
-//mongoose.connect("mongodb://localhost:27017/messageHistoryDB", {useNewUrlParser: true});
+mongoose.connect("mongodb://localhost:27017/tests", {useNewUrlParser: true});
 
+//array to store game game rooms
+var gameRooms = [];
 
-//Don't need this now that we have a database
-// array to store all of the messages
-//var chatMessages = [];
-// create a new schema for our messages
-/*const messageSchema = new mongoose.Schema({
-  order: Number,
-  name: String,
-  msg: String
-})
-
-
-const Messages = mongoose.model("Message",messageSchema);
-*/
-
-const question = {
-        prompt: "who is faster?",
-        answers: {
-                        one: "elephant",
-                        two: "tiger",
-                        three: "puma",
-                        four: "cheeta"
-                },
-        correct: 'four'
-};
-
-console.log(question.prompt);
-console.log(question.answers['one']);
-
-// when a client connects listen for messages and relay them to all the conected clients
 io.on( 'connection', ( client ) => {
-        //listen for newMessage
-        // console.log('new client connected: ',client);
 
-        client.on('start', (message) => {
-                console.log( 'client is sending a new message to start: ', message);
-
-                  /*
-                  var msg = new Messages({
-                  order:counter,
-                  name:recMessage[0],
-                  msg:recMessage[1],
-                  });
-
-                  msg.save();
-                  */
-                 // counter++;
-                //                const question = "this is a question";
-                  // broadcast the message to all connected clients
-                io.emit('sendNewQuestion', question);
+        client.on('createGameRoom', (roomId) => {
+          console.log( 'creating a new room with id: ' + roomId );
+            // create a room  save it and join this client to the room
         });
 
-        client.on('sendAnswer', (answer) => {
-          console.log('received answer of: ', answer);
-          io.emit('sendPlayerAnswer', answer);
+        client.on('joinRoom', (roomId) => {
+          console.log('joining user to room with id: ' + roomId);
+            // join the client to the room if it exists
         });
 
-        client.on('saveQuestions', (questionsToBeSaved) => {
-          console.log('questions to be saved to database: ',questionsToBeSaved);
+        client.on('sendQuestionAnswers',(answers, roomId) => {
+          console.log('sending answer options to the connected clients of room: '+ roomId);
+            // send the options to the client for display
         });
+
+        client.on('pauseGame', (roomId) => {
+          console.log('pausing game on clients of room: ' + roomId);
+        });
+
+        client.on('sendAnswer', (roomId) => {
+          console.log('sending answer to the current question in room: ' + roomId);
+          //send the answer and check if it is correct
+        });
+
 });
 
 
