@@ -14,6 +14,7 @@ function PlayForm(props) {
 
     const playGame = () => {
       console.log(`${name} is playing a game on connection ${connection}!`);
+      props.logIn(name,connection);
     }
 
     return (
@@ -23,7 +24,6 @@ function PlayForm(props) {
           <TextField id="1"  variant="outlined" label="Connection" onChange={(event) => {setConnection(event.target.value);}}/> <br/>
         </form>
         <Button variant="contained" onClick={playGame} >Play</Button>
-
       </Grid>
     )
 }

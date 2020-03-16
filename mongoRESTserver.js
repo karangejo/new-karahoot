@@ -10,7 +10,7 @@ const mongoose = require('mongoose')
   //console.log('connected');
 //});
 console.log('mongodb://localhost:27017/user')
-mongoose.connect('mongodb://localhost:27017/user', { useNewUrlParser: true })
+mongoose.connect('mongodb://localhost:27017/user', { useNewUrlParser: true, useUnifiedTopology: true })
 const db = mongoose.connection
 db.on('error', (error) => console.error(error))
 db.once('open', () => console.log('Connected to Database'))
