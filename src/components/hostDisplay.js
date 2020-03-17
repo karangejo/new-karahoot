@@ -30,7 +30,7 @@ function HostDisplay(props) {
   const [game, setGame] = useState({});
   const [questions, setQuestions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [timeLimit, setTimeLimit] = useState(5);
+  const [timeLimit, setTimeLimit] = useState(10);
   const [players, setPlayers] = useState([]);
   const [playing, setPlaying] = useState(false);
   const [roomId, setRoomId] = useState('');
@@ -38,26 +38,32 @@ function HostDisplay(props) {
   const [gameStarted, setGameStarted] = useState(false);
   const [finished, setFinished] = useState(false);
   const [showPause, setShowPause] = useState(false);
+  const [playerScores, setPlayerScores] = useState({});
 
   useEffect((() => {
     console.log(props.game);
     setGame(props.game);
     setQuestions(props.game.questions);
-
   }),[props])
 
   useEffect(() => {
     socket.on('created', message => {
       console.log(message);
     });
-  },[started])
+
+    socket.on("sendPlayerScores", newPlayerScores => {
+      console.log("players score obj:");
+      console.log(newPlayerScores);
+      setPlayerScores(newPlayerScores);
+    })
+  },[started, playerScores])
 
   const startGame = () => {
     console.log("starting the game");
     const roomID = getId();
     console.log("room id is: " + roomID);
     setRoomId(roomID);
-    socket.emit('createGameRoom', roomID);
+    socket.emit('createGameRoom', {roomId: roomID, timeLimit: timeLimit});
     setStarted(true);
   }
 
@@ -69,6 +75,7 @@ function HostDisplay(props) {
 
   const startQuestions = () => {
     setGameStarted(true);
+    socket.emit("sendQuestionAnswers", {question: questions[currentQuestion], roomId: roomId});
   }
 
   const addPlayer = (newPlayers) => {
@@ -86,8 +93,10 @@ function HostDisplay(props) {
     const current = currentQuestion + 1;
     if(current >= questions.length){
       setFinished(true);
+      socket.emit("finishedGame", roomId);
     } else {
       setShowPause(true);
+      socket.emit("pauseGame", roomId);
       setCurrentQuestion(current);
     }
   }
@@ -106,6 +115,7 @@ function HostDisplay(props) {
 
   const next = () => {
     console.log("no pause now");
+    socket.emit("sendQuestionAnswers", {question: questions[currentQuestion], roomId: roomId});
     setShowPause(false);
   }
 

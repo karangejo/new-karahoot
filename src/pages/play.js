@@ -5,6 +5,9 @@ import { Paper } from '@material-ui/core';
 import Navbar from './../components/navbar';
 import PlayForm from './../components/playForm';
 import WaitingForOthers from './../components/waitingForOthers';
+import AnswersPrompt from './../components/answersPrompt';
+import PlayerPause from './../components/playerPause';
+import PlayerFinished from './../components/playerFinishedGame';
 
 const socket = openSocket( 'http://localhost:8003');
 
@@ -16,17 +19,90 @@ function Play() {
   const [paused, setPaused] = useState(true);
   const [playerName, setPlayerName] = useState('')
   const [roomId, setRoomId] = useState('')
+  const [currentAnswerOptions, setcurrentAnswerOptions] = useState('');
+  const [finished, setFinished] = useState(false);
+  const [startTime, setStartTime] = useState('');
+  const [score, setScore] = useState(0);
+  const [correctlyAnswered, setCorrectlyAnswered] = useState(true);
+  const [timeLimit, setTimeLimit] = useState(10000);
+  const [noRoom, setNoRoom] = useState(false);
+
+
+  useEffect(() => {
+    socket.on("nextQuestion", data => {
+      console.log(data);
+      setcurrentAnswerOptions(data.answers)
+      setPlaying(true);
+      setPaused(false);
+      setStartTime((new Date()))
+    });
+
+    socket.on("pauseGame", () => {
+      console.log("pausing game");
+      setPaused(true);
+    })
+
+    socket.on("finishedGame", () => {
+      console.log("game is finished");
+      setFinished(true);
+    })
+
+    socket.on("correctAnswer", (newScore)  => {
+      console.log("Correct your score is " + newScore);
+      console.log("state score is " + score);
+      const myScore = getScore(newScore);
+      console.log("myScore is " +myScore);
+      const scoreSet = score+myScore
+      console.log(playerName);
+      socket.emit("playerSendScore",{name: playerName, score: scoreSet, roomId: roomId})
+      setScore(scoreSet);
+      setCorrectlyAnswered(true);
+    })
+
+    socket.on("wrongAnswer", (newScore)  => {
+      console.log("Wrong your score is " + newScore);
+      console.log("state score is " + score);
+      const myScore = getScore((timeLimit/2));
+      console.log("myScore is " +myScore);
+      const scoreSet = score-myScore
+      socket.emit("playerSendScore",{name: playerName, score: scoreSet, roomId: roomId})
+      setScore(scoreSet);
+      setCorrectlyAnswered(false);
+    })
+
+    socket.on("sendTimeLimit", timeLimit => {
+      console.log("time limit is: " + timeLimit);
+      setTimeLimit((timeLimit * 1000));
+    })
+
+    socket.on("noSuchRoom", () => {
+      console.log("no such room please try again");
+      setNoRoom(true)
+    })
+
+    socket.on("joinedRoom", roomId => {
+      console.log("joined room " + roomId);
+    })
+
+  },[score, timeLimit, playerName,roomId]);
+
+  const getScore = (score) => {
+    console.log("GetSCORE");
+    console.log(score);
+    console.log(timeLimit);
+    return(Math.max(0, timeLimit - score));
+  }
 
   const logIn = (name, roomID) => {
-    setRoomId(roomId);
-    setPlayerName(name);
-    socket.emit("joinRoom", {roomId: roomID, name: name});
     setLoggedInToGame(true);
+    setRoomId(roomID);
+    socket.emit("joinRoom", {roomId: roomID, name: name});
+    setPlayerName(name);
   }
 
   const logInView = () => {
     return(
-      <PlayForm logIn={logIn}/>
+      <PlayForm logIn={logIn} noRoom={noRoom}/>
     )
   }
 
@@ -35,11 +111,61 @@ function Play() {
       <WaitingForOthers name={playerName}/>
     )
   }
+
+  const sendAnswer = (answer) => {
+    const end = new Date();
+    const newScore = end - startTime;
+    socket.emit("playerAnswer",{name: playerName, roomId: roomId, answer: answer, score: newScore});
+    setPaused(true);
+  }
+
+  const chooseView = () => {
+    return(
+      <AnswersPrompt question={currentAnswerOptions} sendAnswer={sendAnswer}/>
+    )
+  }
+
+  const pauseView = () => {
+    return(
+      <PlayerPause name={playerName} correct={correctlyAnswered} score={score}/>
+    );
+  }
+
+  const finishedView = () => {
+    return(
+      <PlayerFinished name={playerName} score={score}/>
+    );
+  }
+
+
+  const checkAndDisplay = () => {
+
+    if(!finished){
+      if(!loggedInToGame){
+        return(logInView());
+      } else {
+        if(playing){
+          if(paused){
+            return(pauseView());
+          } else {
+            return(chooseView());
+          }
+        } else {
+          return(loggedInView());
+        }
+      }
+    } else {
+      return(finishedView())
+    }
+
+  }
+
+
     return (
       <Grid>
         <Navbar/>
         <Grid  container direction='row' justify='center' alignItems='center' style={{padding: "20px 20px 20px 20px"}}>
-          {!loggedInToGame ? logInView() : loggedInView()}
+          {checkAndDisplay()}
         </Grid>
       </Grid>
     )
