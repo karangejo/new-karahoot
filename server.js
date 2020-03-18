@@ -72,7 +72,7 @@ io.on( 'connection', ( client ) => {
         //*******************
         // this needs work
         client.on("playerSendScore", (obj) => {
-          console.log("received score of " + obj.score + ' from player ' + obj.name);
+          console.log("received score of " + obj.score + ' from player ' + obj.name + ' in room ' + obj.roomId);
           gameRooms[obj.roomId].players[obj.name] = obj.score;
 
         })
@@ -91,8 +91,10 @@ io.on( 'connection', ( client ) => {
 
         client.on("finishedGame", (roomId) => {
           console.log("finished game on room: " + roomId);
-          delete gameRooms[roomId];
           io.sockets.in(roomId).emit("finishedGame");
+          client.emit("sendPlayerScores",gameRooms[roomId].players);
+          delete gameRooms[roomId];
+          console.log(gameRooms);
         })
 
 });

@@ -109,7 +109,7 @@ function HostDisplay(props) {
 
   const finishedView = () => {
     return(
-      <HostFinishedGame />
+      <HostFinishedGame scores={playerScores}/>
     )
   }
 
@@ -121,7 +121,7 @@ function HostDisplay(props) {
 
   const pauseView = () => {
     return(
-      <HostPause next={next}/>
+      <HostPause next={next} scores={playerScores}/>
     )
   }
 

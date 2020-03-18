@@ -11,6 +11,8 @@ import PlayerFinished from './../components/playerFinishedGame';
 
 const socket = openSocket( 'http://localhost:8003');
 
+var gRoomId = '';
+var gPlayerName = '';
 
 
 function Play() {
@@ -29,6 +31,8 @@ function Play() {
 
 
   useEffect(() => {
+    console.log("ROOM ID");
+    console.log(roomId);
     socket.on("nextQuestion", data => {
       console.log(data);
       setcurrentAnswerOptions(data.answers)
@@ -53,8 +57,11 @@ function Play() {
       const myScore = getScore(newScore);
       console.log("myScore is " +myScore);
       const scoreSet = score+myScore
-      console.log(playerName);
-      socket.emit("playerSendScore",{name: playerName, score: scoreSet, roomId: roomId})
+      console.log("Data Passed to playerSendScore");
+      console.log(gPlayerName);
+      console.log(gRoomId);
+      console.log(scoreSet);
+      socket.emit("playerSendScore",{name: gPlayerName, score: scoreSet, roomId: gRoomId})
       setScore(scoreSet);
       setCorrectlyAnswered(true);
     })
@@ -65,7 +72,11 @@ function Play() {
       const myScore = getScore((timeLimit/2));
       console.log("myScore is " +myScore);
       const scoreSet = score-myScore
-      socket.emit("playerSendScore",{name: playerName, score: scoreSet, roomId: roomId})
+      console.log("Data Passed to playerSendScore");
+      console.log(gPlayerName);
+      console.log(gRoomId);
+      console.log(scoreSet);
+      socket.emit("playerSendScore",{name: gPlayerName, score: scoreSet, roomId: gRoomId})
       setScore(scoreSet);
       setCorrectlyAnswered(false);
     })
@@ -78,13 +89,18 @@ function Play() {
     socket.on("noSuchRoom", () => {
       console.log("no such room please try again");
       setNoRoom(true)
+      setLoggedInToGame(false);
+      setRoomId('');
+      gRoomId='';
+      setPlayerName('');
+      gPlayerName='';
     })
 
     socket.on("joinedRoom", roomId => {
       console.log("joined room " + roomId);
     })
 
-  },[score, timeLimit, playerName,roomId]);
+  },[score, timeLimit]);
 
   const getScore = (score) => {
     console.log("GetSCORE");
@@ -96,8 +112,10 @@ function Play() {
   const logIn = (name, roomID) => {
     setLoggedInToGame(true);
     setRoomId(roomID);
+    gRoomId=roomID
     socket.emit("joinRoom", {roomId: roomID, name: name});
     setPlayerName(name);
+    gPlayerName=name;
   }
 
   const logInView = () => {
@@ -131,9 +149,26 @@ function Play() {
     );
   }
 
+  const resetComponent = () => {
+    setLoggedInToGame(false);
+    setPlaying(false);
+    setPaused(true);
+    setPlayerName('')
+    setRoomId('')
+    setcurrentAnswerOptions('');
+    setFinished(false);
+    setStartTime('');
+    setScore(0);
+    setCorrectlyAnswered(true);
+    setTimeLimit(10000);
+    setNoRoom(false);
+    gPlayerName='';
+    gRoomId=''
+  }
+
   const finishedView = () => {
     return(
-      <PlayerFinished name={playerName} score={score}/>
+      <PlayerFinished name={playerName} score={score} resetComponent={resetComponent}/>
     );
   }
 
