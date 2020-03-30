@@ -18,11 +18,12 @@ function Create() {
     const [title, setTitle] = useState('');
     const [questions, setQuestions] = useState([]);
     const [showQuestions, setShowQuestions] = useState(false);
+    const [displayInputAlert, setDisplayInputAlert] = useState(false);
 
     const context = useContext(UserContext);
 
     const saveTest = () => {
-      if(!(questions.length <= 0)){
+      if(!(questions.length <= 0) && !(title === '')){
         const questionsToBeSaved = {
                                     title: title,
                                     owner: context.user.userID,
@@ -42,17 +43,32 @@ function Create() {
         setQuestions([]);
         setShowQuestions(false);
         setTitle('');
-        
+
       } else {
         console.log("No questions to save!");
       }
 
     }
 
+    const validateQuestion = (questionObj) => {
+      if(!questionObj.question || ! questionObj.answer){
+        return(false);
+      } else if('' in questionObj.answers){
+        return(false);
+      } else {
+        return(true);
+      }
+    }
+
     const addQuestion = (question) => {
-      setQuestions(questions.concat(question));
-      setShowQuestions(true);
-  //    console.log(questions)
+      if(validateQuestion(question)){
+        setQuestions(questions.concat(question));
+        setShowQuestions(true);
+        setDisplayInputAlert(false);
+      } else {
+        //console.log("invalid missing some fields");
+        setDisplayInputAlert(true);
+      }
 
     }
 
@@ -62,7 +78,7 @@ function Create() {
       const newArray = []
         array.forEach((value,i) => {
       //    console.log(i);
-          if(!(index == i)){
+          if(!(index === i)){
             newArray.push(value);
           }
         });
@@ -81,25 +97,31 @@ function Create() {
       }
     }
 
+    const displayInvalidinputAlert = () => {
+      return(
+        <Alert severity="info">Unable to add questions make sure everything is filled out correctly!</Alert>
+      )
+    }
+
     const displayQuestions = () => {
       const items = questions.map((value, index) => {
         return(
-            <Paper key={index}>
-              <Grid container direction='column' justify='center' alignItems='flex-start' style={{padding: "20px 20px 20px 20px"}}>
-                <h3> {index+1}) Question: {value.question} </h3>
-                <p> 1) {value.answers[0]} </p>
-                <p> 2) {value.answers[1]} </p>
-                <p> 3) {value.answers[2]} </p>
-                <p> 4) {value.answers[3]} </p>
+            <Grid item key={index}>
+            <Paper key={index} style={{padding: "20px 20px 20px 20px"}}>
+                <h3> {index+1}) {value.question} </h3>
+                <p> a) {value.answers[0]} </p>
+                <p> b) {value.answers[1]} </p>
+                <p> c) {value.answers[2]} </p>
+                <p> d) {value.answers[3]} </p>
                 <p> Correct Answer: {value.answer} </p>
                 <Button variant="contained" onClick={deleteQuestion} value={index}>Delete</Button>
-              </Grid>
             </Paper>
+            </Grid>
         );
       });
       return(
         <Paper>
-          <Grid container direction='column' justify='center' alignItems='center' style={{padding: "20px 20px 20px 20px"}}>
+          <Grid container spacing={3} direction='column' justify='center' alignItems='center' style={{padding: "20px 20px 20px 20px"}}>
             {items}
           </Grid>
         </Paper>
@@ -108,9 +130,9 @@ function Create() {
 
     const loggedInView = () => {
       return(
-          <Paper>
+          <Paper >
             <Grid container direction='column' justify='center' alignItems='center' style={{padding: "20px 20px 20px 20px"}}>
-              <TextField   variant="outlined" label="Game Title" onChange={(event) => {setTitle(event.target.value);}}/> <br/>
+              <TextField   variant="outlined" label="Game Title" style={{width: "80vw"}} onChange={(event) => {setTitle(event.target.value);}}/> <br/>
               <CreateForm addQuestion={addQuestion} saveTest={saveTest}/>
             </Grid>
           </Paper>
@@ -134,15 +156,16 @@ function Create() {
     }
 
     return (
-      <Grid>
+      <div>
         <Navbar/>
-          <Grid container direction='column' justify='center' alignItems='center' style={{padding: "20px 20px 20px 20px"}}>
+          <Grid container direction='column' justify='center' alignItems='center' >
             {checkLogin()}
             <br/>
             <p></p>
+            {displayInputAlert && displayInvalidinputAlert()}
             {showQuestions && displayQuestions()}
           </Grid>
-      </Grid>
+      </div>
     )
 }
 

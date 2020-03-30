@@ -1,7 +1,6 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, {  useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { Paper } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
 import Countdown from 'react-countdown-now';
 
 

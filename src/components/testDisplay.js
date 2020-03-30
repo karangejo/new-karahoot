@@ -1,7 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
-import Grid from '@material-ui/core/Grid';
 import { UserContext } from './../userContext';
 import TestList from './testList';
 
@@ -77,9 +76,9 @@ function TestDisplay() {
     }
 
     return (
-      <Grid  container direction='row' justify='center' alignItems='center' style={{padding: "20px 20px 20px 20px"}}>
+      <div>
       {showTests && displayTests()}
-      </Grid>
+      </div>
     );
 }
 

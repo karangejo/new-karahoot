@@ -5,6 +5,7 @@ import Create from './pages/create';
 import MyStuff from './pages/myStuff';
 import Play from './pages/play';
 import Host from './pages/host';
+import Test from './pages/test';
 import { UserContext } from './userContext';
 
 
@@ -26,6 +27,7 @@ function App() {
                 <Route path="/mystuff" component={MyStuff} />
                 <Route path="/Play" component={Play} />
                 <Route path="/Host" component={Host} />
+                <Route path="/test" component={Test} />
               </UserContext.Provider>
             </Switch>
         </BrowserRouter>

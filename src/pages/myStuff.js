@@ -1,18 +1,12 @@
-import React, { useContext, useState } from 'react';
-import axios from 'axios';
+import React, { useContext } from 'react';
 import Grid from '@material-ui/core/Grid';
-import { Paper } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
-import Box from '@material-ui/core/Box';
 import Navbar from './../components/navbar';
 import TestDisplay from './../components/testDisplay';
 import { UserContext } from './../userContext';
 
 
-
-
 function MyStuff() {
-  const [tests, setTests] = useState({});
 
   const context = useContext(UserContext);
 

@@ -1,7 +1,6 @@
-import React, { useContext, useState, useEffect }from 'react';
+import React, { useState, useEffect }from 'react';
 import openSocket from 'socket.io-client';
 import Grid from '@material-ui/core/Grid';
-import { Paper } from '@material-ui/core';
 import Navbar from './../components/navbar';
 import PlayForm from './../components/playForm';
 import WaitingForOthers from './../components/waitingForOthers';

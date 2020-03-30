@@ -23,22 +23,32 @@ function TestList(props) {
     const displayTests = () => {
       const items = props.tests.map((value, index) => {
         return(
+          <Grid item key={index}>
           <Paper key={index}>
-            <Grid container direction='column' justify='center' alignItems='flex-start' style={{padding: "20px 20px 20px 20px"}}>
-              <p>{value.title}</p> <br/>
-              <p> number of question: {value.numberOfQuestions}</p> <br/>
-              <Button variant="contained" onClick={playGame} value={JSON.stringify(value)}>Play</Button>
-              <Button variant="contained" onClick={deleteGame} value={value._id}>Delete Game</Button>
+            <Grid container spacing={3} direction='column' justify='center' alignItems='center' style={{padding: "20px 20px 20px 20px"}}>
+              <Grid item>
+                <h3>{value.title}</h3> <br/>
+              </Grid>
+              <Grid item>
+                <p> number of questions: {value.numberOfQuestions}</p> <br/>
+              </Grid>
+              <Grid item>
+                <Button variant="contained" onClick={playGame} value={JSON.stringify(value)}>Play</Button>
+              </Grid>
+              <Grid item>
+                <Button variant="contained" onClick={deleteGame} value={value._id}>Delete Game</Button>
+              </Grid>
             </Grid>
           </Paper>
+          </Grid>
         );
       });
       return(
-        <Paper>
-          <Grid container direction='column' justify='center' alignItems='flex-start' style={{padding: "20px 20px 20px 20px"}}>
+
+          <Grid container spacing={6} direction='row' wrap='wrap' justify='center' alignItems='center' style={{padding: "20px 20px 20px 20px"}}>
             {items}
           </Grid>
-        </Paper>
+
       );
     }
 

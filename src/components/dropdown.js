@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
@@ -34,7 +33,7 @@ export default function Dropdown(props) {
 
 
   return (
-      <FormControl size="medium" fullWidth={true}>
+      <FormControl size="medium" fullWidth={true} style={{width: "80vw"}}>
         <InputLabel id="demo-simple-select-label">Answer</InputLabel>
         <Select
           labelId="demo-simple-select-label"

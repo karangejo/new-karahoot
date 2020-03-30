@@ -1,4 +1,4 @@
-import React , {useContext, useState} from 'react';
+import React , {useContext} from 'react';
 import {GoogleLogin, GoogleLogout} from 'react-google-login';
 import axios from 'axios';
 import { UserContext } from './../userContext';
@@ -47,7 +47,6 @@ function Login () {
         //  console.log(response);
           const email = response.profileObj.email;
           const name = response.profileObj.name;
-          const logged = true;
           var userID = ''
           //console.log(context);
           // check if the user is in the database if not then add a new user

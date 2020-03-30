@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, {  useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { Paper } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
@@ -48,7 +48,7 @@ function WaitingForPlayers(props) {
                 <h3>Please enter the following number to play:</h3>
                 <h3>{props.roomId}</h3>
                 <Button variant="contained" onClick={startQuestions}>Start Game</Button>
-                {players && displayPlayers()}
+                {!(players.length <= 0) && displayPlayers()}
               </Grid>
             </Paper>
           </Grid>

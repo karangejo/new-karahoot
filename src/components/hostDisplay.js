@@ -1,8 +1,5 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import openSocket from 'socket.io-client';
-import Grid from '@material-ui/core/Grid';
-import { Paper } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
 import StartGame from './startGame';
 import WaitingForPlayers from './waitingForPlayers';
 import QuestionsPrompt from './questionsPrompt';

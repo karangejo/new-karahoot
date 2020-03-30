@@ -25,13 +25,23 @@ function PlayForm(props) {
     }
 
     return (
-      <Grid container direction='column' justify='center' alignItems='center' style={{padding: "20px 20px 20px 20px"}}>
+      <Grid container spacing={2} direction='column' justify='center' alignItems='center'>
+        <Grid item>
         <form noValidate autoComplete="off">
-          <TextField id="0"  variant="outlined" label="Name" onChange={(event) => {setName(event.target.value);}}/> <br/>
-          <TextField id="1"  variant="outlined" label="Connection" onChange={(event) => {setConnection(event.target.value);}}/> <br/>
+        <Grid container spacing={3} direction='column' justify='center' alignItems='center' style={{padding: "20px 20px 20px 20px"}}>
+          <Grid item>
+            <TextField id="0"  variant="outlined" label="Name" onChange={(event) => {setName(event.target.value);}}/> <br/>
+          </Grid>
+          <Grid item>
+            <TextField id="1"  variant="outlined" label="Connection" onChange={(event) => {setConnection(event.target.value);}}/> <br/>
+          </Grid>
+          </Grid>
         </form>
-        {props.noRoom && alertNoRoom()}
-        <Button variant="contained" onClick={playGame} >Play</Button>
+        </Grid>
+            {props.noRoom && alertNoRoom()}
+        <Grid item>
+          <Button variant="contained" onClick={playGame} >Play</Button>
+        </Grid>
       </Grid>
     )
 }

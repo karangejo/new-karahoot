@@ -1,7 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from "react-router-dom";
 import Grid from '@material-ui/core/Grid';
-import { Paper } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import Navbar from './../components/navbar';
 import { UserContext } from './../userContext';
@@ -10,10 +9,6 @@ import HostDisplay from './../components/hostDisplay';
 
 
 function Host() {
-
-  const [questions, setQuestions] = useState([]);
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [timeLimit, setTimeLimit] = useState(30);
 
   const context = useContext(UserContext);
 

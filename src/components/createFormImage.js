@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import { Paper } from '@material-ui/core';
 import Dropdown from './dropdown';
 
-
+// needs to be edited to accept a background image and answer images
 
 
 function CreateForm(props) {

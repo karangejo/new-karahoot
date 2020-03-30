@@ -1,36 +1,5 @@
 const mongoose = require('mongoose')
-/*
-const questionSchema = new mongoose.Schema({
-  index: {
-    type: String,
-    required: true
-  },
-  prompt: {
-    type: String,
-    required: true
-  },
-  Q1: {
-    type: String,
-    required: true
-  },
-  Q2: {
-    type: String,
-    required: true
-  },
-  Q3: {
-    type: String,
-    required: true
-  },
-  Q4: {
-    type: String,
-    required: true
-  },
-  correct: {
-    type: String,
-    required: true
-  }
-})
-*/
+
 const testSchema = new mongoose.Schema({
   title: {
     type: String,
