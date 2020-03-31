@@ -22,8 +22,32 @@ function Create() {
     const [displayInputAlert, setDisplayInputAlert] = useState(false);
     const [displayGameChoice, setDisplayGameChoice] = useState(true);
     const [textGame, setTextGame] = useState(false);
+    const [answerImages, setAnswerImages] = useState([]);
 
     const context = useContext(UserContext);
+
+    const uploadFiles = () => {
+        console.log("selected many");
+        let files = answerImages;
+        console.log(files);
+        const formData = new FormData();
+        //append all files to formData
+        for(var file of files){
+          formData.append('uploadedFiles',file)
+        }
+        const config = {
+           headers: {
+               'content-type': 'multipart/form-data'
+           }
+         }
+        axios.post('http://localhost:3030/upload-files', formData, config)
+          .then(() => {
+            console.log("files Saved");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+    }
 
     const typeOfTest = () => {
       return(textGame ? "text" : "image");
@@ -54,6 +78,11 @@ function Create() {
 
       } else {
         console.log("No questions to save!");
+      }
+
+      if(!textGame){
+        console.log("upload files to fileServer");
+        uploadFiles();
       }
 
     }
@@ -129,7 +158,7 @@ function Create() {
       });
       return(
         <Paper>
-          <Grid container spacing={3} direction='column' justify='center' alignItems='center' style={{padding: "20px 20px 20px 20px"}}>
+          <Grid container spacing={3} direction='row' justify='center' alignItems='center' style={{padding: "20px 20px 20px 20px"}}>
             {items}
           </Grid>
         </Paper>
@@ -156,7 +185,7 @@ function Create() {
         if(textGame){
           return(<CreateForm addQuestion={addQuestion} saveTest={saveTest}/>);
         } else {
-          return(<CreateImageForm addQuestion={addQuestion} saveTest={saveTest}/>)
+          return(<CreateImageForm addQuestion={addQuestion} saveTest={saveTest} setAnswerImages={setAnswerImages}/>)
         }
       }
     }

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Alert from '@material-ui/lab/Alert';
-import axios from  'axios';
+
 
 
 function UploadFile(props) {
@@ -36,7 +36,9 @@ function UploadFile(props) {
     console.log(typeof(validationFiles));
     const types = Object.keys(validationFiles).map((key) => {
         if(!validationFiles[key].type.match(/image.*/)){
-          return(false)
+          return(false);
+        } else {
+          return(true);
         }
     })
     return(!(types.includes(false)));

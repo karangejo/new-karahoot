@@ -33,8 +33,8 @@ export default function Dropdown(props) {
 
 
   return (
-      <FormControl size="medium" fullWidth={true} style={{width: "80vw"}}>
-        <InputLabel id="demo-simple-select-label">Answer</InputLabel>
+      <FormControl size="medium" fullWidth={true} style={props.style || {width: "80vw"}}>
+        <InputLabel id="demo-simple-select-label">{props.text || "Answer" }</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"

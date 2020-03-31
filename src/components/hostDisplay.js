@@ -24,12 +24,12 @@ const getId = () => {
 
 // needs some props set
 function HostDisplay(props) {
-  const [game, setGame] = useState({});
+  //const [game, setGame] = useState({});
   const [questions, setQuestions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [timeLimit, setTimeLimit] = useState(10);
   const [players, setPlayers] = useState([]);
-  const [playing, setPlaying] = useState(false);
+  //const [playing, setPlaying] = useState(false);
   const [roomId, setRoomId] = useState('');
   const [started, setStarted] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
@@ -39,7 +39,7 @@ function HostDisplay(props) {
 
   useEffect((() => {
     console.log(props.game);
-    setGame(props.game);
+    //setGame(props.game);
     setQuestions(props.game.questions);
   }),[props])
 
@@ -66,7 +66,7 @@ function HostDisplay(props) {
 
   const startView = () => {
     return(
-      <StartGame gameTitle={props.game.title} startGame={startGame}/>
+      <StartGame gameTitle={props.game.title} startGame={startGame} setTimelimit={setTimeLimit}/>
     )
   }
 

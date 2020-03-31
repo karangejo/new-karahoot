@@ -6,9 +6,11 @@ const morgan = require('morgan');
 const _ = require('lodash');
 const mongoose = require('mongoose');
 var fs = require('fs');
+var spawn = require('child_process').spawn;
 
 
-const FileMongo = require('../models/file');
+
+const FileMongo = require('./models/file');
 
 const app = express();
 
@@ -31,7 +33,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(morgan('dev'));
 
 //start app and serve files
-app.use(express.static('uploads'));
+// app.use(express.static('uploads'));
 
 const port = process.env.PORT || 3030;
 
@@ -72,6 +74,13 @@ app.post('/upload-files', async (req, res) => {
                 //move file to uploads directory
                 const filePath = './images/' + file.name;
                 file.mv(filePath);
+
+
+                // resize and crop image
+                const fileInfo = filePath.split('/').pop().split('.')
+                const newFileName = fileInfo[0]+'600x600'+fileInfo[1];
+                const args = [filePath, '-resize','\"600x600\"','-gravity','center','-extent','600x600', './convertedImages/'+ newFileName ];
+                const convert = spawn('convert', args);
 
                 //save to mongoDd
                 savePathToMongo(filePath,res);

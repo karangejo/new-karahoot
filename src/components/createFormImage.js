@@ -18,29 +18,6 @@ function CreateImageForm(props) {
     const [answerImagesFileNames, setAnswerImagesFileNames] = useState(['','','','']);
 
 
-    const uploadFiles = (event) => {
-        console.log("selected many");
-        let files = answerImages;
-        console.log(files);
-        const formData = new FormData();
-        //append all files to formData
-        for(var file of files){
-          formData.append('uploadedFiles',file)
-        }
-        const config = {
-           headers: {
-               'content-type': 'multipart/form-data'
-           }
-         }
-        axios.post('http://localhost:3030/upload-files', formData, config)
-          .then(() => {
-            console.log("files Saved");
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-    }
-
     const handleAnswer = (answer) => {
       setAnswer(answer)
     }
@@ -59,6 +36,10 @@ function CreateImageForm(props) {
       props.saveTest();
     }
 
+    const getImages = (fileArray) => {
+      setAnswerImages(fileArray);
+      props.setAnswerImages(fileArray);
+    }
 
 
     return (
@@ -73,7 +54,7 @@ function CreateImageForm(props) {
                   <h3>Upload 4 answer images</h3>
                 </Grid>
                 <Grid item>
-                  <UploadFile setFiles={setAnswerImages} setFileNames={setAnswerImagesFileNames}/> <br/>
+                  <UploadFile setFiles={getImages} setFileNames={setAnswerImagesFileNames}/> <br/>
                 </Grid>
               </Grid>
             </form>

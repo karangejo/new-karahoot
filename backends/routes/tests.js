@@ -39,6 +39,7 @@ router.post('/', async function(req, res){
     title: req.body.title,
     owner: req.body.owner,
     numberOfQuestions: req.body.numberOfQuestions,
+    typeOfTest: req.body.typeOfTest,
     questions: req.body.questions
   })
   console.log(testToSave);

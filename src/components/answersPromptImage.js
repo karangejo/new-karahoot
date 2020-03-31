@@ -1,7 +1,7 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import { Paper } from '@material-ui/core';
-
+import ResponsiveImage from './responsiveImage';
 
 
 // needs some props set
@@ -12,28 +12,35 @@ function AnswersPromptImage(props) {
       props.sendAnswer(answer);
     }
 
-    const buttonStyleDim = "40vh"
+    const buttonStyleWidth = "38vw"
+    const buttonStyleHeight = "40vh"
 
     return (
-          <Grid  container direction='column' justify='center' alignItems='center' style={{padding: "20px 20px 20px 20px"}}>
-            <Paper>
-              <Grid  container spacing={4} direction='row' justify='center' alignItems='center' style={{padding: "20px 20px 20px 20px"}}>
+          <Grid  container direction='column' justify='center' alignItems='center'>
+              <Grid  container spacing={4} direction='row' justify='center' alignItems='center' style={{padding: "10px 10px 10px 10px"}}>
                 <Grid item>
-                  <button  style={{height: buttonStyleDim, width: buttonStyleDim, color: 'white', backgroundImage: `url(${props.images[0]})`}} onClick={answerQuestion} value={props.question[0]} ></button>
+                  <button  style={{height: buttonStyleHeight, width: buttonStyleWidth, color: 'white', background: 'none', alignItems:"center"}} onClick={answerQuestion} value={props.files[0]} >
+                    <ResponsiveImage src={props.images[0]} width={300} height={300}/>
+                  </button>
                 </Grid>
                 <Grid item>
-                  <button  style={{height: buttonStyleDim, width: buttonStyleDim, color: 'white', backgroundImage: `url(${props.images[1]})`}} onClick={answerQuestion} value={props.question[1]} ></button>
-                </Grid>
-              </Grid>
-              <Grid  container spacing={4} direction='row' justify='center' alignItems='center' style={{padding: "20px 20px 20px 20px"}}>
-                <Grid item>
-                  <button  style={{height: buttonStyleDim, width: buttonStyleDim, color: 'white' ,backgroundImage: `url(${props.images[2]})`}} onClick={answerQuestion} value={props.question[2]} ></button>
-                </Grid>
-                <Grid item>
-                <button  style={{height: buttonStyleDim, width: buttonStyleDim, color: 'white', backgroundImage: `url(${props.images[3]})`}} onClick={answerQuestion} value={props.question[3]} ></button>
+                <button  style={{height: buttonStyleHeight, width: buttonStyleWidth, color: 'white', background: 'none', alignItems:"center"}} onClick={answerQuestion} value={props.files[1]} >
+                  <ResponsiveImage src={props.images[1]} width={300} height={300}/>
+                </button>
                 </Grid>
               </Grid>
-            </Paper>
+              <Grid  container spacing={4} direction='row' justify='center' alignItems='center' style={{padding: "20px 20px 20px 20px"}}>
+                <Grid item>
+                <button  style={{height: buttonStyleHeight, width: buttonStyleWidth, color: 'white', background: 'none', alignItems:"center"}} onClick={answerQuestion} value={props.files[2]} >
+                  <ResponsiveImage src={props.images[2]} width={300} height={300}/>
+                </button>
+                </Grid>
+                <Grid item>
+                <button  style={{height: buttonStyleHeight, width: buttonStyleWidth, color: 'white', background: 'none', alignItems:"center"}} onClick={answerQuestion} value={props.files[3]} >
+                  <ResponsiveImage src={props.images[3]} width={300} height={300}/>
+                </button>
+                </Grid>
+              </Grid>
           </Grid>
     );
 }
