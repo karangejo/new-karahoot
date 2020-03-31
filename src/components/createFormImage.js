@@ -4,19 +4,42 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Paper } from '@material-ui/core';
 import Dropdown from './dropdown';
+import UploadFile from './uploadFile';
+import axios from  'axios';
 
 // needs to be edited to accept a background image and answer images
 
 
-function CreateForm(props) {
+function CreateImageForm(props) {
 
-    const [one, setOne] = useState('');
-    const [two, setTwo] = useState('');
-    const [three, setThree] = useState('');
-    const [four, setFour] = useState('');
     const [answer, setAnswer] = useState('');
-    const [answers, setAnswers] = useState([]);
     const [question, setQuestion] = useState('');
+    const [answerImages, setAnswerImages] = useState(['','','','']);
+    const [answerImagesFileNames, setAnswerImagesFileNames] = useState(['','','','']);
+
+
+    const uploadFiles = (event) => {
+        console.log("selected many");
+        let files = answerImages;
+        console.log(files);
+        const formData = new FormData();
+        //append all files to formData
+        for(var file of files){
+          formData.append('uploadedFiles',file)
+        }
+        const config = {
+           headers: {
+               'content-type': 'multipart/form-data'
+           }
+         }
+        axios.post('http://localhost:3030/upload-files', formData, config)
+          .then(() => {
+            console.log("files Saved");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+    }
 
     const handleAnswer = (answer) => {
       setAnswer(answer)
@@ -25,7 +48,7 @@ function CreateForm(props) {
     const addQuestion = () => {
       const questionObj = {
         question: question,
-        answers: answers,
+        answers: answerImagesFileNames,
         answer: answer
       }
     //  console.log(questionObj);
@@ -36,52 +59,38 @@ function CreateForm(props) {
       props.saveTest();
     }
 
+
+
     return (
 
         <Paper style={{padding: "20x 20x 20x 20x"}}>
-
             <form noValidate autoComplete="off">
-            <Grid container spacing={3} direction='column' justify='center' alignItems='center' style={{padding: "20px 20px 20px 20px"}}>
-              <Grid item>
-              <TextField   id="0"  variant="outlined" label="Question" style={{width: "80vw"}} onChange={(event) => {setQuestion(event.target.value);}}/> <br/>
+              <Grid container spacing={3} direction='column' justify='center' alignItems='center' style={{padding: "20px 20px 20px 20px"}}>
+                <Grid item>
+                  <TextField   id="0"  variant="outlined" label="Question" style={{width: "80vw"}} onChange={(event) => {setQuestion(event.target.value);}}/> <br/>
+                </Grid>
+                <Grid item>
+                  <h3>Upload 4 answer images</h3>
+                </Grid>
+                <Grid item>
+                  <UploadFile setFiles={setAnswerImages} setFileNames={setAnswerImagesFileNames}/> <br/>
+                </Grid>
               </Grid>
-              <Grid item>
-              <TextField  id="1"  variant="outlined" label="first answer" style={{width: "80vw"}} onChange={(event) => {setOne(event.target.value);
-                                                                          setAnswers([event.target.value, two, three, four]);
-                                                                          }}/> <br/>
-              </Grid>
-              <Grid item>
-              <TextField  id="2"  variant="outlined"  label="second answer" style={{width: "80vw"}} onChange={(event) => {setTwo(event.target.value);
-                                                                          setAnswers([one,event.target.value, three, four]);
-                                                                          }}/> <br/>
-              </Grid>
-              <Grid item>
-              <TextField  id="3"  variant="outlined"  label="third answer" style={{width: "80vw"}} onChange={(event) => {setThree(event.target.value);
-                                                                          setAnswers([one, two, event.target.value, four]);
-                                                                          }}/> <br/>
-              </Grid>
-              <Grid item>
-              <TextField  id="4"  variant="outlined"  label="fourth answer" style={{width: "80vw"}} onChange={(event) => {setFour(event.target.value);
-                                                                          setAnswers([one, two, three, event.target.value]);
-                                                                          }}/> <br/>
-              </Grid>
-            </Grid>
             </form>
             <Grid container spacing={3} direction='column' justify='center' alignItems='center' style={{padding: "20px 20px 20px 20px"}}>
-            <Grid item>
-            <Dropdown questions={answers} handleAnswer={handleAnswer}/> <br/>
+              <Grid item>
+                <Dropdown questions={answerImagesFileNames} handleAnswer={handleAnswer}/> <br/>
+              </Grid>
+              <Grid item>
+                <Button variant="contained" onClick={addQuestion} >Add Question</Button>
+              </Grid>
+              <Grid item>
+                <Button variant="contained" onClick={saveTest} >Save Game</Button>
+              </Grid>
             </Grid>
-            <Grid item>
-            <Button variant="contained" onClick={addQuestion} >Add Question</Button>
-            </Grid>
-            <Grid item>
-            <Button variant="contained" onClick={saveTest} >Save Game</Button>
-            </Grid>
-            </Grid>
-
         </Paper>
 
     )
 }
 
-export default CreateForm;
+export default CreateImageForm;

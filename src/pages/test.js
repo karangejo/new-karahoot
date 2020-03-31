@@ -1,9 +1,5 @@
 import React from 'react';
-import AnswersPromptImage from './../components/answersPromptImage';
-// import Im1 from '../images/buttonSmaller.jpg';
-// import Im2 from '../images/loginSmaller.jpg';
-// import Im3 from '../images/phasesSmaller.jpg';
-// import Im4 from '../images/quizSmaller.jpg';
+import CreateFormImage from './../components/createFormImage';
 
 
 
@@ -21,7 +17,7 @@ function Home() {
 
     return (
       <div>
-        <AnswersPromptImage question={answerSample} images={imageSample} sendAnswer={sendAnswer}/>
+        <CreateFormImage/>
       </div>
     )
 }

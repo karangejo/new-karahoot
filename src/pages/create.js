@@ -8,7 +8,8 @@ import Alert from '@material-ui/lab/Alert';
 import Navbar from './../components/navbar';
 import { UserContext } from './../userContext';
 import CreateForm from './../components/createForm';
-
+import CreateImageForm from './../components/createFormImage';
+import ImgOrTxt from './../components/createImageOrText';
 
 
 
@@ -19,8 +20,14 @@ function Create() {
     const [questions, setQuestions] = useState([]);
     const [showQuestions, setShowQuestions] = useState(false);
     const [displayInputAlert, setDisplayInputAlert] = useState(false);
+    const [displayGameChoice, setDisplayGameChoice] = useState(true);
+    const [textGame, setTextGame] = useState(false);
 
     const context = useContext(UserContext);
+
+    const typeOfTest = () => {
+      return(textGame ? "text" : "image");
+    }
 
     const saveTest = () => {
       if(!(questions.length <= 0) && !(title === '')){
@@ -28,6 +35,7 @@ function Create() {
                                     title: title,
                                     owner: context.user.userID,
                                     numberOfQuestions: questions.length,
+                                    typeOfTest: typeOfTest(),
                                     questions: questions
                                   };
 
@@ -128,13 +136,40 @@ function Create() {
         );
     }
 
+    const playImageGame = () => {
+      setTextGame(false);
+      setDisplayGameChoice(false);
+    }
+
+    const playTextGame = () => {
+      setTextGame(true);
+      setDisplayGameChoice(false);
+
+    }
+
+    const imageOrText = () => {
+      return(<ImgOrTxt startImage={playImageGame} startText={playTextGame}/>)
+    }
+
+    const createChoosenGame = () => {
+      if(!displayGameChoice){
+        if(textGame){
+          return(<CreateForm addQuestion={addQuestion} saveTest={saveTest}/>);
+        } else {
+          return(<CreateImageForm addQuestion={addQuestion} saveTest={saveTest}/>)
+        }
+      }
+    }
+
     const loggedInView = () => {
       return(
           <Paper >
             <Grid container direction='column' justify='center' alignItems='center' style={{padding: "20px 20px 20px 20px"}}>
               <TextField   variant="outlined" label="Game Title" style={{width: "80vw"}} onChange={(event) => {setTitle(event.target.value);}}/> <br/>
-              <CreateForm addQuestion={addQuestion} saveTest={saveTest}/>
+              {displayGameChoice && imageOrText()}
+              {createChoosenGame()}
             </Grid>
+
           </Paper>
       )
     }

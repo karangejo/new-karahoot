@@ -70,7 +70,7 @@ app.post('/upload-files', async (req, res) => {
                 let file = req.files.uploadedFiles[key];
 
                 //move file to uploads directory
-                const filePath = '../src/images/' + file.name;
+                const filePath = './images/' + file.name;
                 file.mv(filePath);
 
                 //save to mongoDd
@@ -111,7 +111,7 @@ app.post('/upload-file', async (req, res) => {
             let newFile = req.files.uploadedFile;
 
             //Use the mv() method to place the file in upload directory (i.e. "uploads")
-            const filePath = '../src/images/' + newFile.name
+            const filePath = './images/' + newFile.name
             newFile.mv(filePath);
 
             savePathToMongo(filePath,res);

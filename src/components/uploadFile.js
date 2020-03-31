@@ -5,35 +5,75 @@ import Alert from '@material-ui/lab/Alert';
 import axios from  'axios';
 
 
-function Upload() {
+function UploadFile(props) {
 
-  const [file, setFile] = useState('');
-    const [fileName, setFileName] = useState('');
+  const [files, setFiles] = useState([]);
+  const [fileNames, setFileNames] = useState([]);
+  const [displayNotEnoughFiles, setNotEnoughFiles] = useState(false);
+  const [displayImageWarning, setDisplayImageWarning] = useState(false);
 
-  const uploadFile = (event) => {
-      console.log("selected one");
-      console.log(file);
-      const formData = new FormData();
-      formData.append('uploadedFile',file)
-      const config = {
-         headers: {
-             'content-type': 'multipart/form-data'
-         }
-       }
-      axios.post('http://localhost:3030/upload-file', formData, config)
-        .then(() => {
-          console.log("file Saved");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+  const getNamesFromFiles = (fileArray) => {
+    let namesArray = [];
+    for(var i in fileArray){
+      namesArray.push(fileArray[i].name);
+    }
+    setFileNames(namesArray);
+    props.setFileNames(namesArray);
   }
 
+  const getFiles = (fileArray) => {
+    let returnArray = [];
+    console.log(fileArray)
+    for(var i in fileArray){
+      if(typeof fileArray[i] == 'object'){
+        returnArray.push(fileArray[i]);
+      }
+    }
+    return(returnArray);
+  }
+
+  const validateImages = (validationFiles) => {
+    console.log(typeof(validationFiles));
+    const types = Object.keys(validationFiles).map((key) => {
+        if(!validationFiles[key].type.match(/image.*/)){
+          return(false)
+        }
+    })
+    return(!(types.includes(false)));
+  }
 
   const changedFile = (event) => {
-    const uploadedFile = event.target.files[0]
-    setFile(uploadedFile);
-    setFileNames([uploadedFile.name]);
+    setFiles([]);
+    props.setFiles([]);
+    setFileNames([]);
+    const uploadedFiles = event.target.files
+    if(validateImages(uploadedFiles)){
+      setDisplayImageWarning(false);
+      const fileArray = getFiles(uploadedFiles);
+      if(fileArray.length <4){
+         setNotEnoughFiles(true);
+      } else {
+        setNotEnoughFiles(false);
+        getNamesFromFiles(fileArray);
+        setFiles(fileArray);
+        props.setFiles(fileArray);
+      }
+    } else {
+      setDisplayImageWarning(true);
+    }
+
+  }
+
+  const displayNotImageWarning = () => {
+    return(
+        displayImageWarning ? <Alert severity="info">Please upload image files.</Alert> : null
+    )
+  }
+
+  const displayNotEnough = () => {
+    return(
+        displayNotEnoughFiles ? <Alert severity="info">Not enough files. Please upload 4 files.</Alert> : null
+    )
   }
 
   const displayFileNames = () => {
@@ -62,13 +102,12 @@ function Upload() {
             </Button>
           </label>
           {displayFileNames()}
+          {displayNotEnough()}
+          {displayNotImageWarning() }
         </Grid>
-        <Button variant="contained" color="primary" component="span" onClick={uploadFile}>
-          Upload
-        </Button>
     </Grid>
   );
 }
 
 
-export default Upload;
+export default UploadFile;

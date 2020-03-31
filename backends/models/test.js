@@ -13,6 +13,10 @@ const testSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  typeOfTest : {
+    type: String,
+    required: true
+  },
   questions: {
     type: [],
     required: true
