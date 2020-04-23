@@ -5,6 +5,7 @@ import Navbar from './../components/navbar';
 import PlayForm from './../components/playForm';
 import WaitingForOthers from './../components/waitingForOthers';
 import AnswersPrompt from './../components/answersPrompt';
+import AnswersPromptImage from './../components/answersPromptImage';
 import PlayerPause from './../components/playerPause';
 import PlayerFinished from './../components/playerFinishedGame';
 
@@ -27,13 +28,26 @@ function Play() {
   const [correctlyAnswered, setCorrectlyAnswered] = useState(true);
   const [timeLimit, setTimeLimit] = useState(10000);
   const [noRoom, setNoRoom] = useState(false);
+  const [testType, setTestType] = useState('')
+  const [images, setImages] = useState([]);
 
+  const setImageAnswers = (answers) => {
+    const fileServerURL = "http://127.0.0.1:8080/";
+
+    const imageList = answers.map((element, index) => {
+      return(
+        fileServerURL + element
+      )
+    })
+    setImages(imageList);
+  }
 
   useEffect(() => {
     console.log("ROOM ID");
     console.log(roomId);
     socket.on("nextQuestion", data => {
       console.log(data);
+      setImageAnswers(data.answers)
       setcurrentAnswerOptions(data.answers)
       setPlaying(true);
       setPaused(false);
@@ -83,6 +97,11 @@ function Play() {
     socket.on("sendTimeLimit", timeLimit => {
       console.log("time limit is: " + timeLimit);
       setTimeLimit((timeLimit * 1000));
+    })
+
+    socket.on("sendTestType", testType => {
+      console.log("test type is: " + testType);
+      setTestType(testType);
     })
 
     socket.on("noSuchRoom", () => {
@@ -137,9 +156,21 @@ function Play() {
   }
 
   const chooseView = () => {
-    return(
-      <AnswersPrompt question={currentAnswerOptions} sendAnswer={sendAnswer}/>
-    )
+    switch(testType){
+      case "text":
+      return(
+        <AnswersPrompt question={currentAnswerOptions} sendAnswer={sendAnswer}/>
+      )
+      case "image":
+      return(
+        <AnswersPromptImage images={images}  questions={currentAnswerOptions} sendAnswer={sendAnswer}/>
+      )
+      default :
+      return(
+        <AnswersPrompt question={currentAnswerOptions} sendAnswer={sendAnswer}/>
+      )
+    }
+    
   }
 
   const pauseView = () => {

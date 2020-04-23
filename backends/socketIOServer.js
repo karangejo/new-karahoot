@@ -24,7 +24,7 @@ io.on( 'connection', ( client ) => {
         client.on('createGameRoom', (obj) => {
           console.log( 'creating a new room with id: ' + obj.roomId );
             // create a room  save it and join this client to the room
-            gameRooms[obj.roomId] = {players:{},timeLimit: obj.timeLimit};
+            gameRooms[obj.roomId] = {players: {}, timeLimit: obj.timeLimit, type: obj.testType};
             client.join(obj.roomId);
             // send a message back to reconfirm
             io.sockets.in(obj.roomId).emit("created","success");
@@ -39,6 +39,7 @@ io.on( 'connection', ( client ) => {
               gameRooms[obj.roomId].players[obj.name] = 0;
               io.sockets.in(obj.roomId).emit("newPlayer", obj.name);
               client.emit("sendTimeLimit", gameRooms[obj.roomId].timeLimit);
+              client.emit("sendTestType", gameRooms[obj.roomId].type);
             } else {
               client.emit("noSuchRoom");
             }

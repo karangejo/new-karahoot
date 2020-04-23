@@ -28,7 +28,7 @@ function HostDisplay(props) {
   const [questions, setQuestions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [timeLimit, setTimeLimit] = useState(10);
-  const [players, setPlayers] = useState([]);
+  //const [players, setPlayers] = useState([]);
   //const [playing, setPlaying] = useState(false);
   const [roomId, setRoomId] = useState('');
   const [started, setStarted] = useState(false);
@@ -60,7 +60,7 @@ function HostDisplay(props) {
     const roomID = getId();
     console.log("room id is: " + roomID);
     setRoomId(roomID);
-    socket.emit('createGameRoom', {roomId: roomID, timeLimit: timeLimit});
+    socket.emit('createGameRoom', {roomId: roomID, timeLimit: timeLimit, testType: props.game.typeOfTest});
     setStarted(true);
   }
 
@@ -76,7 +76,7 @@ function HostDisplay(props) {
   }
 
   const addPlayer = (newPlayers) => {
-    setPlayers(newPlayers);
+   // setPlayers(newPlayers);
   }
 
   const  waitingView = () => {

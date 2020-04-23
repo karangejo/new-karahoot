@@ -78,10 +78,11 @@ app.post('/upload-files', async (req, res) => {
 
                 // resize and crop image
                 const fileInfo = filePath.split('/').pop().split('.')
-                const newFileName = fileInfo[0]+'600x600'+fileInfo[1];
-                const args = [filePath, '-resize','\"600x600\"','-gravity','center','-extent','600x600', './convertedImages/'+ newFileName ];
+                const newFileName = './convertedImages/'+ fileInfo[0]+'600x600'+fileInfo[1];
+                const args = [filePath, '-resize','\"600x600\"','-gravity','center','-extent','600x600',  newFileName ];
                 const convert = spawn('convert', args);
-
+                console.log(convert);
+                
                 //save to mongoDd
                 savePathToMongo(filePath,res);
 

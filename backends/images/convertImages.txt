@@ -1,3 +1,0 @@
-convert input.jpg -resize "275x275" -gravity center -extent 275x275 output.jpg
-
-have to experiment with the size and add this command after images are uploaded

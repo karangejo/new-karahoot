@@ -29,10 +29,10 @@ function QuestionsPrompt(props) {
               <Grid  container direction='column' justify='center' alignItems='center' style={{padding: "20px 20px 20px 20px"}}>
                 <Countdown date={Date.now() + (props.timeLimit*1000)} renderer={renderer} />
                 <h3>{props.question.question}</h3>
-                <h3> Name: {props.question.answers[0]}</h3>
+                {/* <h3> Name: {props.question.answers[0]}</h3>
                 <h3> Name: {props.question.answers[1]}</h3>
                 <h3> Name: {props.question.answers[2]}</h3>
-                <h3> Name: {props.question.answers[3]}</h3>
+                <h3> Name: {props.question.answers[3]}</h3> */}
               </Grid>
             </Paper>
           </Grid>

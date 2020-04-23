@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import { Paper } from '@material-ui/core';
 import Dropdown from './dropdown';
 import UploadFile from './uploadFile';
-import axios from  'axios';
+//import axios from  'axios';
 
 // needs to be edited to accept a background image and answer images
 
@@ -14,7 +14,7 @@ function CreateImageForm(props) {
 
     const [answer, setAnswer] = useState('');
     const [question, setQuestion] = useState('');
-    const [answerImages, setAnswerImages] = useState(['','','','']);
+   // const [answerImages, setAnswerImages] = useState(['','','','']);
     const [answerImagesFileNames, setAnswerImagesFileNames] = useState(['','','','']);
 
 
@@ -37,7 +37,7 @@ function CreateImageForm(props) {
     }
 
     const getImages = (fileArray) => {
-      setAnswerImages(fileArray);
+     // setAnswerImages(fileArray);
       props.setAnswerImages(fileArray);
     }
 
