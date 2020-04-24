@@ -7,7 +7,7 @@ import AnswersPromptImage from './../components/answersPromptImage';
 function Home() {
 
     const answerSample = ["a","b","c","d"];
-    const imageSample = ["http://localhost:8080/buttonB.jpg","http://localhost:8080/buttonB.jpg","http://localhost:8080/buttonB.jpg","http://localhost:8080/buttonB.jpg",];
+    const imageSample = ["http://localhost:8080/dolphin.jpeg","http://localhost:8080/elephant.jpeg","http://localhost:8080/monkey.jpeg","http://localhost:8080/tiger.jpeg",];
     // const localImageSample = [Im1,Im2,Im3,Im4];
 
     const sendAnswer = (answer) => {
@@ -17,7 +17,7 @@ function Home() {
 
     return (
       <div>
-        <AnswersPromptImage images={imageSample} files={answerSample}/>
+        <AnswersPromptImage images={imageSample} questions={answerSample} sendAnswer={sendAnswer}/>
       </div>
     )
 }

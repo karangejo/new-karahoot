@@ -5,11 +5,10 @@ import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import Grid from '@material-ui/core/Grid';
 import { Paper } from '@material-ui/core';
 import Login from './login';
-
+import {style} from '../styles';
 
 
 function Navbar() {
-
   const history = useHistory();
 
   function handleClick(e,value) {
@@ -32,22 +31,28 @@ function Navbar() {
 
   return (
 
-    <Grid container direction='column' justify='center' alignItems='center' style={{width: "100%", padding: "20px 20px 20px 20px"}} >
-    <Paper style={{width: "100%"}}>
-      <div align="center">
-        <Login/>
-      </div>
-      <BottomNavigation
-      onChange={handleClick}
-      showLabels
-      >
-        <BottomNavigationAction label="Home" />
-        <BottomNavigationAction label="Create" />
-        <BottomNavigationAction label="Play" />
-        <BottomNavigationAction label="My Stuff" />
+    <Grid container direction='column' justify='center' alignItems='center' style={{width: "100%", padding: "10px 10px 10px 10px"}} >
+    <Paper className="purple" style={{width: "100%", backgroundColor: style.colors.purple}}>
+      <Grid container direction='column' justify='center' alignItems='center' style={{padding: "10px 10px 10px 10px"}}>
+        <Grid item>
+          <div align="center">
+            <Login/>
+          </div>
+        </Grid>
+        <Grid item>
+          <BottomNavigation
+          onChange={handleClick}
+          showLabels
+          style={{backgroundColor: style.colors.purple}}
+          >
+            <BottomNavigationAction label="Home" style={{color: style.colors.yellow}}/>
+            <BottomNavigationAction label="Create" style={{color: style.colors.yellow}}/>
+            <BottomNavigationAction label="Play" style={{color: style.colors.yellow}}/>
+            <BottomNavigationAction label="My Stuff" style={{color: style.colors.yellow}}/>
 
-      </BottomNavigation>
-
+          </BottomNavigation>
+        </Grid>
+      </Grid>
     </Paper>
     </Grid>
 

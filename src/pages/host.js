@@ -2,10 +2,9 @@ import React, { useContext } from 'react';
 import { useHistory } from "react-router-dom";
 import Grid from '@material-ui/core/Grid';
 import Alert from '@material-ui/lab/Alert';
-import Navbar from './../components/navbar';
 import { UserContext } from './../userContext';
 import HostDisplay from './../components/hostDisplay';
-
+import Layout from './../components/layout';
 
 
 function Host() {
@@ -56,12 +55,13 @@ function Host() {
   }
 
     return (
-      <Grid>
-        <Navbar/>
-          <Grid  container direction='row' justify='center' alignItems='center' style={{padding: "20px 20px 20px 20px"}}>
+      <Layout>
+          <Grid  container direction='row' justify='center'  style={{padding: "20px 20px 20px 20px"}}>
             {checkLogin()}
+            <div style={{height: "80vh"}}/>
           </Grid>
-      </Grid>
+      </Layout>
+          
     );
 }
 

@@ -7,8 +7,7 @@ import Play from './pages/play';
 import Host from './pages/host';
 import Test from './pages/test';
 import { UserContext } from './userContext';
-
-
+import './style.css';
 
 function App() {
 

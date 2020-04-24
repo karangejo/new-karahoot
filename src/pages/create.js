@@ -5,12 +5,12 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Alert from '@material-ui/lab/Alert';
-import Navbar from './../components/navbar';
 import { UserContext } from './../userContext';
 import CreateForm from './../components/createForm';
 import CreateImageForm from './../components/createFormImage';
 import ImgOrTxt from './../components/createImageOrText';
-
+import Layout from '../components/layout';
+import {style} from '../styles';
 
 
 
@@ -136,7 +136,7 @@ function Create() {
 
     const displayInvalidinputAlert = () => {
       return(
-        <Alert severity="info">Unable to add questions make sure everything is filled out correctly!</Alert>
+        <Alert severity="info" style={{backgroundColor: style.colors.yellow}}>Unable to add questions make sure everything is filled out correctly!</Alert>
       )
     }
 
@@ -206,7 +206,7 @@ function Create() {
     const loggedOutView = () => {
       return(
         <div>
-          <Alert severity="info">Please Login to create a game!</Alert>
+          <Alert severity="info" style={{backgroundColor: style.colors.yellow}}>Please Login to create a game!</Alert>
         </div>
       )
     }
@@ -220,16 +220,16 @@ function Create() {
     }
 
     return (
-      <div>
-        <Navbar/>
-          <Grid container direction='column' justify='center' alignItems='center' >
+      <Layout>
+        <Grid container direction='column' justify='center' alignItems='center' >
             {checkLogin()}
             <br/>
             <p></p>
             {displayInputAlert && displayInvalidinputAlert()}
             {showQuestions && displayQuestions()}
+            <div style={{height: "80vh"}}/>
           </Grid>
-      </div>
+      </Layout>          
     )
 }
 

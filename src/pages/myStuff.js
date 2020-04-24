@@ -4,6 +4,8 @@ import Alert from '@material-ui/lab/Alert';
 import Navbar from './../components/navbar';
 import TestDisplay from './../components/testDisplay';
 import { UserContext } from './../userContext';
+import Layout from '../components/layout';
+import {style} from '../styles';
 
 
 function MyStuff() {
@@ -22,7 +24,7 @@ function MyStuff() {
   const loggedOutView = () => {
     return(
       <div>
-        <Alert severity="info">Please Login to see your games!</Alert>
+        <Alert severity="info" style={{backgroundColor: style.colors.yellow}}>Please Login to see your games!</Alert>
       </div>
     );
   }
@@ -36,12 +38,12 @@ function MyStuff() {
   }
 
     return (
-      <Grid>
-        <Navbar/>
-          <Grid  container direction='row' justify='center' alignItems='center' style={{padding: "20px 20px 20px 20px"}}>
+      <Layout>
+          <Grid  container direction='row' justify='center'  style={{padding: "20px 20px 20px 20px"}}>
             {checkLogin()}
+            <div style={{height: "80vh"}}/>
           </Grid>
-      </Grid>
+      </Layout>    
     );
 }
 

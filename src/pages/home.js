@@ -1,7 +1,7 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import Navbar from './../components/navbar';
-
+import Layout from './../components/layout';
+import {style} from '../styles';
 
 
 
@@ -11,14 +11,18 @@ function Home() {
 
 
     return (
-      <Grid>
-        <Navbar/>
+      <Layout>
           <Grid container direction='column' justify='center' alignItems='center' style={{padding: "20px 20px 20px 20px"}}>
-            <h1 align="center" >
-              QUIZZAZ
-            </h1>
+            <Grid item>
+              <h1 align="center" style={{color: style.colors.yellow}}>
+                QUIZZAZ
+              </h1>
+            </Grid>
+            <Grid item>
+                <div style={{height: "80vh"}}/>
+            </Grid>
           </Grid>
-      </Grid>
+      </Layout>
     )
 }
 

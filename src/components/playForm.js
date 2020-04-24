@@ -3,8 +3,16 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Alert from '@material-ui/lab/Alert';
+import {style} from '../styles';
 
-
+const myStyles = theme => ({
+  textField: {
+      color: style.colors.yellow
+  },
+  input: {
+      color: style.colors.pink
+  }
+});
 
 
 function PlayForm(props) {
@@ -20,27 +28,27 @@ function PlayForm(props) {
 
     const alertNoRoom = () => {
       return(
-        <Alert severity="info">Sorry... no game was found! <br/> Try another connection.</Alert>
+        <Alert severity="info" style={{backgroundColor: style.colors.yellow}}>Sorry... no game was found! <br/> Try another connection.</Alert>
       )
     }
 
     return (
       <Grid container spacing={2} direction='column' justify='center' alignItems='center'>
         <Grid item>
-        <form noValidate autoComplete="off">
+        <form noValidate autoComplete="off" >
         <Grid container spacing={3} direction='column' justify='center' alignItems='center' style={{padding: "20px 20px 20px 20px"}}>
           <Grid item>
-            <TextField id="0"  variant="outlined" label="Name" onChange={(event) => {setName(event.target.value);}}/> <br/>
+            <TextField  id="0"  variant="outlined" label="Name" onChange={(event) => {setName(event.target.value);}} inputProps={{style: {color: style.colors.yellow}}}/> <br/>
           </Grid>
           <Grid item>
-            <TextField id="1"  variant="outlined" label="Connection" onChange={(event) => {setConnection(event.target.value);}}/> <br/>
+            <TextField id="1"  variant="outlined" label="Connection" onChange={(event) => {setConnection(event.target.value);}} inputProps={{style: {color: style.colors.yellow}}}/> <br/>
           </Grid>
           </Grid>
         </form>
         </Grid>
             {props.noRoom && alertNoRoom()}
         <Grid item>
-          <Button variant="contained" onClick={playGame} >Play</Button>
+          <Button variant="contained" onClick={playGame} style={{backgroundColor: style.colors.pink}}>Play</Button>
         </Grid>
       </Grid>
     )

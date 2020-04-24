@@ -8,6 +8,7 @@ import AnswersPrompt from './../components/answersPrompt';
 import AnswersPromptImage from './../components/answersPromptImage';
 import PlayerPause from './../components/playerPause';
 import PlayerFinished from './../components/playerFinishedGame';
+import {style} from '../styles';
 
 const socket = openSocket( 'http://localhost:8003');
 
@@ -118,7 +119,7 @@ function Play() {
       console.log("joined room " + roomId);
     })
 
-  },[score, timeLimit]);
+  },[score, timeLimit,roomId]);
 
   const getScore = (score) => {
     console.log("GetSCORE");
@@ -151,6 +152,7 @@ function Play() {
   const sendAnswer = (answer) => {
     const end = new Date();
     const newScore = end - startTime;
+    console.log("my answer is: " + answer);
     socket.emit("playerAnswer",{name: playerName, roomId: roomId, answer: answer, score: newScore});
     setPaused(true);
   }
@@ -225,11 +227,17 @@ function Play() {
 
   }
 
-
+    const playingGame = () => {
+      if(playing  && !finished && loggedInToGame){
+        return(true);
+      } else {
+        return(false);
+      }
+    }
     return (
-      <Grid>
-        <Navbar/>
-        <Grid  container direction='row' justify='center' alignItems='center' style={{padding: "20px 20px 20px 20px"}}>
+      <Grid style={{backgroundColor: style.colors.blue, height: "100vh"}}>
+       { playingGame() ? null : <Navbar/> }
+        <Grid  container direction='row' justify='center' alignItems='center' style={(playingGame() ? null : {padding: "20px 20px 20px 20px"})}>
           {checkAndDisplay()}
         </Grid>
       </Grid>

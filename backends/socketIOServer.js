@@ -49,6 +49,8 @@ io.on( 'connection', ( client ) => {
         client.on('sendQuestionAnswers',obj => {
           console.log('sending answer options to the connected clients of room: '+ obj.roomId);
             // send the options to the client for display
+            console.log("current answer obj :");
+            console.log(obj);
             gameRooms[obj.roomId].currentAnswer = obj.question.answer;
             console.log("GAME ROOMS");
             console.log(gameRooms);

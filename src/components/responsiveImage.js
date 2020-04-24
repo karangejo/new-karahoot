@@ -13,7 +13,8 @@ function ResponsiveImage( { src, width, height } ) {
         } } />
       <img
         src={ src }
-        className="responsive-image__image" />
+        className="responsive-image__image"
+        alt="button for game" />
     </div>
   );
 }
