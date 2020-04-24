@@ -2,7 +2,7 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import { Paper } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-
+import {style} from '../styles';
 
 
 
@@ -24,7 +24,7 @@ function TestList(props) {
       const items = props.tests.map((value, index) => {
         return(
           <Grid item key={index}>
-          <Paper key={index}>
+          <Paper key={index} style={{backgroundColor: style.colors.yellow}}>
             <Grid container spacing={3} direction='column' justify='center' alignItems='center' style={{padding: "20px 20px 20px 20px"}}>
               <Grid item>
                 <h3>{value.title}</h3> <br/>
@@ -33,10 +33,10 @@ function TestList(props) {
                 <p> number of questions: {value.numberOfQuestions}</p> <br/>
               </Grid>
               <Grid item>
-                <Button variant="contained" onClick={playGame} value={JSON.stringify(value)}>Play</Button>
+                <Button variant="contained" onClick={playGame} value={JSON.stringify(value)} style={{backgroundColor: style.colors.pink}} >Play</Button>
               </Grid>
               <Grid item>
-                <Button variant="contained" onClick={deleteGame} value={value._id}>Delete Game</Button>
+                <Button variant="contained" onClick={deleteGame} value={value._id} style={{backgroundColor: style.colors.pink}} >Delete Game</Button>
               </Grid>
             </Grid>
           </Paper>

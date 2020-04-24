@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import { Paper } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Dropdown from './dropdown'
-
+import {style} from '../styles';
 
 
 // needs some props set
@@ -23,13 +23,13 @@ function StartGame(props) {
     return (
       <Grid>
           <Grid  container direction='column' justify='center' alignItems='center' style={{padding: "20px 20px 20px 20px"}}>
-            <Paper>
+            <Paper style={{backgroundColor: style.colors.yellow}} >
               <Grid  container spacing={3} direction='column' justify='center' alignItems='center' style={{padding: "20px 20px 20px 20px"}}>
                 <Grid item>
                   <h2>{props.gameTitle}</h2>
                 </Grid>
                 <Grid item>
-                  <Button variant="contained" onClick={startGame}>Start Game</Button>
+                  <Button variant="contained" onClick={startGame} style={{background: style.colors.pink}}>Start Game</Button>
                 </Grid>
                 <Grid item>
                   <Dropdown text="Time Limit" questions={timeLimitOptions} handleAnswer={handleAnswer} style={{width:"15vw"}}/>
