@@ -110,7 +110,10 @@ function UploadFile(props) {
             variant="contained"
             color="primary"
             component="span"
-            style={{ backgroundColor: style.colors.pink }}
+            style={{
+              backgroundColor: style.colors.pink,
+              fontFamily: style.button.fontFamily,
+            }}
           >
             Choose
           </Button>

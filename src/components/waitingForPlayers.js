@@ -33,7 +33,7 @@ function WaitingForPlayers(props) {
       );
     });
     return (
-      <Paper style={{ backgroundColor: style.colors.pink }}>
+      <Paper elevation={5} style={{ backgroundColor: style.colors.pink }}>
         <Grid
           container
           direction="column"
@@ -57,7 +57,7 @@ function WaitingForPlayers(props) {
         alignItems="center"
         style={{ padding: "20px 20px 20px 20px" }}
       >
-        <Paper style={{ backgroundColor: style.colors.yellow }}>
+        <Paper elevation={5} style={{ backgroundColor: style.colors.yellow }}>
           <Grid
             container
             direction="column"
@@ -70,13 +70,17 @@ function WaitingForPlayers(props) {
               <h3>Please enter the following number to play:</h3>
             </Grid>
             <Grid item>
-              <h3>{props.roomId}</h3>
+              <h1 style={{ fontFamily: "Bubblegum Sans" }}>{props.roomId}</h1>
             </Grid>
             <Grid item>
               <Button
                 variant="contained"
+                color="primary"
                 onClick={startQuestions}
-                style={{ backgroundColor: style.colors.pink }}
+                style={{
+                  backgroundColor: style.colors.pink,
+                  fontFamily: style.button.fontFamily,
+                }}
               >
                 Start Game
               </Button>

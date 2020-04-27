@@ -42,9 +42,13 @@ function TestList(props) {
               <Grid item>
                 <Button
                   variant="contained"
+                  color="primary"
                   onClick={playGame}
                   value={JSON.stringify(value)}
-                  style={{ backgroundColor: style.colors.pink }}
+                  style={{
+                    backgroundColor: style.colors.pink,
+                    fontFamily: style.button.fontFamily,
+                  }}
                 >
                   Play
                 </Button>
@@ -52,9 +56,13 @@ function TestList(props) {
               <Grid item>
                 <Button
                   variant="contained"
+                  color="primary"
                   onClick={deleteGame}
                   value={value._id}
-                  style={{ backgroundColor: style.colors.pink }}
+                  style={{
+                    backgroundColor: style.colors.pink,
+                    fontFamily: style.button.fontFamily,
+                  }}
                 >
                   Delete Game
                 </Button>

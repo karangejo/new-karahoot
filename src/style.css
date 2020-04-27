@@ -1,8 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Barrio&family=Flavors&family=Fredoka+One&family=Rye&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Barrio&family=Boogaloo&family=Bubblegum+Sans&family=Flavors&family=Fredoka+One&family=Rye&display=swap");
 
 h1 {
   font-family: Barrio;
-  font-size: 12vw;
+  font-size: 10vw;
 }
 
 h2,
@@ -11,6 +11,6 @@ h4,
 h5,
 h6,
 p {
-  font-family: Fredoka one;
+  font-family: Bubblegum Sans;
   color: #4d089a;
 }

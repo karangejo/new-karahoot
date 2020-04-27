@@ -57,8 +57,12 @@ function PlayerFinishedGame(props) {
             {playerScoreItems(props.scores)}
             <Button
               variant="contained"
+              color="primary"
               onClick={goBack}
-              style={{ backgroundColor: style.colors.pink }}
+              style={{
+                backgroundColor: style.colors.pink,
+                fontFamily: style.button.fontFamily,
+              }}
             >
               My Games
             </Button>

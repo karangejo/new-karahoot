@@ -27,7 +27,7 @@ function StartGame(props) {
         alignItems="center"
         style={{ padding: "20px 20px 20px 20px" }}
       >
-        <Paper style={{ backgroundColor: style.colors.yellow }}>
+        <Paper elevation={5} style={{ backgroundColor: style.colors.yellow }}>
           <Grid
             container
             spacing={3}
@@ -42,8 +42,12 @@ function StartGame(props) {
             <Grid item>
               <Button
                 variant="contained"
+                color="primary"
                 onClick={startGame}
-                style={{ background: style.colors.pink }}
+                style={{
+                  background: style.colors.pink,
+                  fontFamily: style.button.fontFamily,
+                }}
               >
                 Start Game
               </Button>

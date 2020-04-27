@@ -21,7 +21,7 @@ function MyStuff() {
 
   const loggedOutView = () => {
     return (
-      <Grid container direction="column">
+      <Grid container direction="column" alignItems="center">
         <Alert
           severity="info"
           style={{ backgroundColor: style.colors.yellow, width: "80vw" }}

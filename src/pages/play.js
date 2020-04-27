@@ -254,17 +254,17 @@ function Play() {
     }
   };
   return (
-    <Grid style={{ backgroundColor: style.colors.blue, height: "100vh" }}>
+    <Grid style={{ backgroundColor: style.colors.blue }}>
       {playingGame() ? null : <Navbar />}
       <Grid
         container
         direction="row"
         justify="center"
-        alignItems="center"
         style={playingGame() ? null : { padding: "20px 20px 20px 20px" }}
       >
         {checkAndDisplay()}
       </Grid>
+      <div style={{ height: "80vh" }} />
     </Grid>
   );
 }

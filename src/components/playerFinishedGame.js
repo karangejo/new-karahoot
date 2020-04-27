@@ -31,8 +31,12 @@ function PlayerFinished(props) {
           <h3> Score: {props.score}</h3>
           <Button
             variant="contained"
+            color="primary"
             onClick={goBack}
-            style={{ backgroundColor: style.colors.pink }}
+            style={{
+              backgroundColor: style.colors.pink,
+              fontFamily: style.button.fontFamily,
+            }}
           >
             Play Again
           </Button>

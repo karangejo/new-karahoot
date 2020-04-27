@@ -15,6 +15,8 @@ function CreateForm(props) {
   const [answers, setAnswers] = useState([]);
   const [question, setQuestion] = useState("");
 
+  const inputWidth = "50vw";
+
   const handleAnswer = (answer) => {
     setAnswer(answer);
   };
@@ -55,10 +57,11 @@ function CreateForm(props) {
               id="0"
               variant="outlined"
               label="Question"
-              style={{ width: "80vw" }}
+              style={{ width: inputWidth }}
               onChange={(event) => {
                 setQuestion(event.target.value);
               }}
+              inputProps={{ style: { color: style.colors.pink } }}
             />{" "}
             <br />
           </Grid>
@@ -67,11 +70,12 @@ function CreateForm(props) {
               id="1"
               variant="outlined"
               label="first answer"
-              style={{ width: "80vw" }}
+              style={{ width: inputWidth }}
               onChange={(event) => {
                 setOne(event.target.value);
                 setAnswers([event.target.value, two, three, four]);
               }}
+              inputProps={{ style: { color: style.colors.pink } }}
             />{" "}
             <br />
           </Grid>
@@ -80,11 +84,12 @@ function CreateForm(props) {
               id="2"
               variant="outlined"
               label="second answer"
-              style={{ width: "80vw" }}
+              style={{ width: inputWidth }}
               onChange={(event) => {
                 setTwo(event.target.value);
                 setAnswers([one, event.target.value, three, four]);
               }}
+              inputProps={{ style: { color: style.colors.pink } }}
             />{" "}
             <br />
           </Grid>
@@ -93,11 +98,12 @@ function CreateForm(props) {
               id="3"
               variant="outlined"
               label="third answer"
-              style={{ width: "80vw" }}
+              style={{ width: inputWidth }}
               onChange={(event) => {
                 setThree(event.target.value);
                 setAnswers([one, two, event.target.value, four]);
               }}
+              inputProps={{ style: { color: style.colors.pink } }}
             />{" "}
             <br />
           </Grid>
@@ -106,11 +112,12 @@ function CreateForm(props) {
               id="4"
               variant="outlined"
               label="fourth answer"
-              style={{ width: "80vw" }}
+              style={{ width: inputWidth }}
               onChange={(event) => {
                 setFour(event.target.value);
                 setAnswers([one, two, three, event.target.value]);
               }}
+              inputProps={{ style: { color: style.colors.pink } }}
             />{" "}
             <br />
           </Grid>
@@ -132,7 +139,10 @@ function CreateForm(props) {
             variant="contained"
             color="primary"
             onClick={addQuestion}
-            style={{ backgroundColor: style.colors.pink }}
+            style={{
+              backgroundColor: style.colors.pink,
+              fontFamily: style.button.fontFamily,
+            }}
           >
             Add Question
           </Button>
@@ -142,7 +152,10 @@ function CreateForm(props) {
             variant="contained"
             color="primary"
             onClick={saveTest}
-            style={{ backgroundColor: style.colors.pink }}
+            style={{
+              backgroundColor: style.colors.pink,
+              fontFamily: style.button.fontFamily,
+            }}
           >
             Save Game
           </Button>

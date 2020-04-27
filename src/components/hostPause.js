@@ -52,7 +52,15 @@ function HostPause(props) {
           >
             <h2>Take Break</h2>
             {playerScoreItems(props.scores)}
-            <Button variant="contained" onClick={next}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={next}
+              style={{
+                fontFamily: style.button.fontFamily,
+                backgroundColor: style.colors.pink,
+              }}
+            >
               Next
             </Button>
           </Grid>

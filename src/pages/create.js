@@ -13,6 +13,15 @@ import Layout from "../components/layout";
 import { style } from "../styles";
 import QuestionImg from "../images/question.png";
 import ResponsiveImage from "./../components/responsiveImage";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+
+const theme = createMuiTheme({
+  typography: {
+    fontFamily: style.dropDown.fontFamily,
+    fontSize: "3vw",
+  },
+  bacgroundColor: style.colors.yellow,
+});
 
 function Create() {
   const [title, setTitle] = useState("");
@@ -108,12 +117,12 @@ function Create() {
   };
 
   const removeItem = (array, index) => {
-    //console.log(array)
-    //console.log(index)
+    console.log(array);
+    console.log(index);
     const newArray = [];
     array.forEach((value, i) => {
-      //    console.log(i);
-      if (!(index === i)) {
+      console.log(i);
+      if (!(index == i)) {
         newArray.push(value);
       }
     });
@@ -121,11 +130,11 @@ function Create() {
   };
 
   const deleteQuestion = (event) => {
-    //console.log(questions)
+    console.log(questions);
     const index = event.currentTarget.value;
     const newArray = removeItem(questions, index);
-    //  console.log(index);
-    //  console.log(newArray)
+    console.log(index);
+    console.log(newArray);
     setQuestions(newArray);
     if (newArray.length <= 0) {
       setShowQuestions(false);
@@ -146,6 +155,7 @@ function Create() {
         <Grid item key={index}>
           <Paper
             key={index}
+            elevation={5}
             style={{
               backgroundColor: style.colors.yellow,
               padding: "20px 20px 20px 20px",
@@ -173,7 +183,7 @@ function Create() {
       );
     });
     return (
-      <Paper>
+      <Paper elevation={5} style={{ backgroundColor: style.colors.yellow }}>
         <Grid
           container
           spacing={3}
@@ -228,14 +238,17 @@ function Create() {
           alignItems="center"
           style={{ padding: "20px 20px 20px 20px" }}
         >
-          <TextField
-            variant="outlined"
-            label="Game Title"
-            style={{ width: "80vw" }}
-            onChange={(event) => {
-              setTitle(event.target.value);
-            }}
-          />{" "}
+          <ThemeProvider theme={theme}>
+            <TextField
+              variant="outlined"
+              label="Game Title"
+              style={{ width: "65vw" }}
+              onChange={(event) => {
+                setTitle(event.target.value);
+              }}
+              inputProps={{ style: { color: style.colors.pink } }}
+            />{" "}
+          </ThemeProvider>
           <br />
           {displayGameChoice && imageOrText()}
           {createChoosenGame()}
@@ -282,7 +295,7 @@ function Create() {
         ) : null}
         {displayInputAlert && displayInvalidinputAlert()}
         {showQuestions && displayQuestions()}
-        <div style={{ height: "40vh" }} />
+        <div style={{ height: "60vh" }} />
       </Grid>
     </Layout>
   );

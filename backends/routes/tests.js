@@ -21,7 +21,7 @@ router.get('/:id', getTest, (req, res, next) => {
 router.get("/id", async (req, res) => {
   try {
     //console.log(req.query);
-    tests = await Test.find({ owner: req.query.id });
+    const tests = await Test.find({ owner: req.query.id });
     res.status(200).json(tests);
     if (tests == null) {
       return res.status(404).json({ message: "Cannot find test" });

@@ -13,6 +13,12 @@ export const style = {
   },
   navIcons: {
     color: "#DC2ADE",
-    fontSize: "40px"
+    fontSize: "40px",
+  },
+  button: {
+    fontFamily: "Barrio",
+  },
+  dropDown: {
+    fontFamily: "Bubblegum Sans",
   },
 };

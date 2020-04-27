@@ -8,13 +8,7 @@ import ResponsiveImage from "./../components/responsiveImage";
 function Home() {
   return (
     <Layout>
-      <Grid
-        container
-        direction="column"
-        justify="center"
-        alignItems="center"
-        style={{ padding: "20px 20px 20px 20px" }}
-      >
+      <Grid container direction="column" justify="center" alignItems="center">
         <Grid item>
           <h1 align="center" style={{ color: style.colors.yellow }}>
             QUIZZAZ

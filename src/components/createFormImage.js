@@ -22,6 +22,8 @@ function CreateImageForm(props) {
     "",
   ]);
 
+  const inputWidth = "50vw";
+
   const handleAnswer = (answer) => {
     setAnswer(answer);
   };
@@ -67,10 +69,11 @@ function CreateImageForm(props) {
               id="0"
               variant="outlined"
               label="Question"
-              style={{ width: "80vw" }}
+              style={{ width: inputWidth }}
               onChange={(event) => {
                 setQuestion(event.target.value);
               }}
+              inputProps={{ style: { color: style.colors.pink } }}
             />{" "}
             <br />
           </Grid>
@@ -106,7 +109,10 @@ function CreateImageForm(props) {
             variant="contained"
             color="primary"
             onClick={addQuestion}
-            style={{ backgroundColor: style.colors.pink }}
+            style={{
+              backgroundColor: style.colors.pink,
+              fontFamily: style.button.fontFamily,
+            }}
           >
             Add Question
           </Button>
@@ -116,7 +122,10 @@ function CreateImageForm(props) {
             variant="contained"
             color="primary"
             onClick={saveTest}
-            style={{ backgroundColor: style.colors.pink }}
+            style={{
+              backgroundColor: style.colors.pink,
+              fontFamily: style.button.fontFamily,
+            }}
           >
             Save Game
           </Button>

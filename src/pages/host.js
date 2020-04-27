@@ -6,6 +6,8 @@ import { UserContext } from "./../userContext";
 import HostDisplay from "./../components/hostDisplay";
 import Layout from "./../components/layout";
 import { style } from "./../styles";
+import QuestionImg from "../images/question.png";
+import ResponsiveImage from "./../components/responsiveImage";
 
 function Host() {
   const context = useContext(UserContext);
@@ -36,11 +38,17 @@ function Host() {
 
   const loggedOutView = () => {
     return (
-      <div>
-        <Alert severity="info" style={{ backgroundColor: style.colors.yellow }}>
+      <Grid container direction="column" alignItems="center">
+        <Alert
+          severity="info"
+          style={{ backgroundColor: style.colors.yellow, width: "80vw" }}
+        >
           Please Login to host a game!
         </Alert>
-      </div>
+        <br />
+        <p></p>
+        <ResponsiveImage src={QuestionImg} width={300} height={200} />
+      </Grid>
     );
   };
 
