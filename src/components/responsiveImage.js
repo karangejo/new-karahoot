@@ -1,20 +1,24 @@
-import React from 'react';
-import './responsiveImage.css'
+import React from "react";
+import "./responsiveImage.css";
 
-function ResponsiveImage( { src, width, height } ) {
+function ResponsiveImage({ src, width, height }) {
   return (
     <div
-      style={ {
+      style={{
         width,
-      } }
-      className="responsive-image">
-      <div style={ {
-          paddingBottom: ( height / width * 100 ) + '%'
-        } } />
+      }}
+      className="responsive-image"
+    >
+      <div
+        style={{
+          paddingBottom: (height / width) * 100 + "%",
+        }}
+      />
       <img
-        src={ src }
+        src={src}
         className="responsive-image__image"
-        alt="button for game" />
+        alt="button for game"
+      />
     </div>
   );
 }

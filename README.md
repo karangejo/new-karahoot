@@ -1,3 +1,16 @@
+## Quizzaz
+
+multiplayer quiz engine for the web.
+
+## Local Development
+
+clone this repo and run the following
+
+```bash
+npm install
+npm run startall
+```
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

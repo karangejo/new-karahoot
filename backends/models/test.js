@@ -1,33 +1,32 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
 const testSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true
+    required: true,
   },
   owner: {
     type: String,
-    required: true
+    required: true,
   },
   numberOfQuestions: {
     type: String,
-    required: true
+    required: true,
   },
-  typeOfTest : {
+  typeOfTest: {
     type: String,
-    required: true
+    required: true,
   },
   questions: {
     type: [],
-    required: true
-  }
-})
+    required: true,
+  },
+});
 
-const testDB = mongoose.connection.useDb('tests');
+const testDB = mongoose.connection.useDb("tests");
 
-const testInfo = testDB.model('test', testSchema);
+const testInfo = testDB.model("test", testSchema);
 
 module.exports = testInfo;
-
 
 //module.exports = mongoose.model('test', testSchema)

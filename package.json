@@ -26,6 +26,7 @@
     "uuid": "^7.0.2"
   },
   "scripts": {
+    "startall": "react-scripts start; nodemon ./backends/mongoRESTserver.js; nodemon ./backends/socketIOServer.js; nodemon ./backends/fileUpload.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

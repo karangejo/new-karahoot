@@ -1,8 +1,11 @@
-const io = require('socket.io')();
-const mongoose = require('mongoose');
+const io = require("socket.io")();
+const mongoose = require("mongoose");
 
 // connect to the database and create it if it does not exist
-mongoose.connect("mongodb://localhost:27017/tests", {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect("mongodb://localhost:27017/tests", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 //gameRoom object structured like this
 //gameRoom[roomId].players.name to get the score
 //gameRoom[roomId].players.
@@ -19,92 +22,104 @@ mongoose.connect("mongodb://localhost:27017/tests", {useNewUrlParser: true, useU
 //array to store game game rooms
 var gameRooms = {};
 
-io.on( 'connection', ( client ) => {
+io.on("connection", (client) => {
+  client.on("createGameRoom", (obj) => {
+    console.log("creating a new room with id: " + obj.roomId);
+    // create a room  save it and join this client to the room
+    gameRooms[obj.roomId] = {
+      players: {},
+      timeLimit: obj.timeLimit,
+      type: obj.testType,
+    };
+    client.join(obj.roomId);
+    // send a message back to reconfirm
+    io.sockets.in(obj.roomId).emit("created", "success");
+  });
 
-        client.on('createGameRoom', (obj) => {
-          console.log( 'creating a new room with id: ' + obj.roomId );
-            // create a room  save it and join this client to the room
-            gameRooms[obj.roomId] = {players: {}, timeLimit: obj.timeLimit, type: obj.testType};
-            client.join(obj.roomId);
-            // send a message back to reconfirm
-            io.sockets.in(obj.roomId).emit("created","success");
-        });
+  client.on("joinRoom", (obj) => {
+    console.log("joining user " + obj.name + " to room with id: " + obj.roomId);
+    // join the client to the room if it exists
+    //if roomId in gameRoom
+    if (gameRooms.hasOwnProperty(obj.roomId)) {
+      client.join(obj.roomId);
+      gameRooms[obj.roomId].players[obj.name] = 0;
+      io.sockets.in(obj.roomId).emit("newPlayer", obj.name);
+      client.emit("sendTimeLimit", gameRooms[obj.roomId].timeLimit);
+      client.emit("sendTestType", gameRooms[obj.roomId].type);
+    } else {
+      client.emit("noSuchRoom");
+    }
+  });
 
-        client.on('joinRoom', (obj) => {
-          console.log('joining user ' +obj.name + ' to room with id: ' + obj.roomId);
-            // join the client to the room if it exists
-            //if roomId in gameRoom
-            if(gameRooms.hasOwnProperty(obj.roomId)){
-              client.join(obj.roomId);
-              gameRooms[obj.roomId].players[obj.name] = 0;
-              io.sockets.in(obj.roomId).emit("newPlayer", obj.name);
-              client.emit("sendTimeLimit", gameRooms[obj.roomId].timeLimit);
-              client.emit("sendTestType", gameRooms[obj.roomId].type);
-            } else {
-              client.emit("noSuchRoom");
-            }
+  client.on("sendQuestionAnswers", (obj) => {
+    console.log(
+      "sending answer options to the connected clients of room: " + obj.roomId
+    );
+    // send the options to the client for display
+    console.log("current answer obj :");
+    console.log(obj);
+    gameRooms[obj.roomId].currentAnswer = obj.question.answer;
+    console.log("GAME ROOMS");
+    console.log(gameRooms);
+    io.sockets.in(obj.roomId).emit("nextQuestion", obj.question);
+  });
 
-        });
+  client.on("pauseGame", (roomId) => {
+    console.log("pausing game on clients of room: " + roomId);
+    // pause game in players
+    io.sockets.in(roomId).emit("pauseGame");
+    client.emit("sendPlayerScores", gameRooms[roomId].players);
+  });
 
-        client.on('sendQuestionAnswers',obj => {
-          console.log('sending answer options to the connected clients of room: '+ obj.roomId);
-            // send the options to the client for display
-            console.log("current answer obj :");
-            console.log(obj);
-            gameRooms[obj.roomId].currentAnswer = obj.question.answer;
-            console.log("GAME ROOMS");
-            console.log(gameRooms);
-            io.sockets.in(obj.roomId).emit("nextQuestion", obj.question);
-        });
+  // not used at the moment
+  client.on("sendAnswer", (roomId) => {
+    console.log("sending answer to the current question in room: " + roomId);
+    //send the answer and check if it is correct
+  });
 
-        client.on('pauseGame', (roomId) => {
-          console.log('pausing game on clients of room: ' + roomId);
-          // pause game in players
-          io.sockets.in(roomId).emit("pauseGame");
-          client.emit("sendPlayerScores",gameRooms[roomId].players)
-        });
+  // **********************
+  //(((((((((((((((((())))))))))))))))))
+  //*******************
+  // this needs work
+  client.on("playerSendScore", (obj) => {
+    console.log(
+      "received score of " +
+        obj.score +
+        " from player " +
+        obj.name +
+        " in room " +
+        obj.roomId
+    );
+    gameRooms[obj.roomId].players[obj.name] = obj.score;
+  });
 
-        // not used at the moment
-        client.on('sendAnswer', (roomId) => {
-          console.log('sending answer to the current question in room: ' + roomId);
-          //send the answer and check if it is correct
-        });
+  client.on("playerAnswer", (obj) => {
+    console.log("player ANSWER");
+    console.log(obj);
+    console.log(
+      "sending answer to question for player " +
+        obj.name +
+        " in room: " +
+        obj.roomId
+    );
+    if (obj.answer == gameRooms[obj.roomId].currentAnswer) {
+      client.emit("correctAnswer", obj.score);
+    } else {
+      client.emit("wrongAnswer", obj.score);
+    }
+  });
 
-        // **********************
-        //(((((((((((((((((())))))))))))))))))
-        //*******************
-        // this needs work
-        client.on("playerSendScore", (obj) => {
-          console.log("received score of " + obj.score + ' from player ' + obj.name + ' in room ' + obj.roomId);
-          gameRooms[obj.roomId].players[obj.name] = obj.score;
-
-        })
-
-        client.on("playerAnswer", (obj) => {
-          console.log("player ANSWER");
-          console.log(obj);
-          console.log('sending answer to question for player ' + obj.name+ ' in room: ' + obj.roomId);
-          if(obj.answer == gameRooms[obj.roomId].currentAnswer){
-            client.emit("correctAnswer", obj.score);
-          } else {
-            client.emit("wrongAnswer", obj.score);
-          }
-        });
-
-
-        client.on("finishedGame", (roomId) => {
-          console.log("finished game on room: " + roomId);
-          io.sockets.in(roomId).emit("finishedGame");
-          client.emit("sendPlayerScores",gameRooms[roomId].players);
-          delete gameRooms[roomId];
-          console.log(gameRooms);
-        })
-
+  client.on("finishedGame", (roomId) => {
+    console.log("finished game on room: " + roomId);
+    io.sockets.in(roomId).emit("finishedGame");
+    client.emit("sendPlayerScores", gameRooms[roomId].players);
+    delete gameRooms[roomId];
+    console.log(gameRooms);
+  });
 });
-
 
 const port = 8003;
 
-io.listen( port );
+io.listen(port);
 
-console.log( 'listening on port', port );
+console.log("listening on port", port);
