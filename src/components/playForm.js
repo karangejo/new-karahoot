@@ -25,6 +25,7 @@ function PlayForm(props) {
 
   return (
     <Paper
+      elevation={5}
       style={{
         backgroundColor: style.colors.yellow,
         padding: "20px 20px 20px 20px",
@@ -78,6 +79,7 @@ function PlayForm(props) {
         <Grid item>
           <Button
             variant="contained"
+            color="primary"
             onClick={playGame}
             style={{ backgroundColor: style.colors.pink }}
           >

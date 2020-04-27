@@ -11,6 +11,8 @@ import CreateImageForm from "./../components/createFormImage";
 import ImgOrTxt from "./../components/createImageOrText";
 import Layout from "../components/layout";
 import { style } from "../styles";
+import QuestionImg from "../images/question.png";
+import ResponsiveImage from "./../components/responsiveImage";
 
 function Create() {
   const [title, setTitle] = useState("");
@@ -142,7 +144,13 @@ function Create() {
     const items = questions.map((value, index) => {
       return (
         <Grid item key={index}>
-          <Paper key={index} style={{ padding: "20px 20px 20px 20px" }}>
+          <Paper
+            key={index}
+            style={{
+              backgroundColor: style.colors.yellow,
+              padding: "20px 20px 20px 20px",
+            }}
+          >
             <h3>
               {" "}
               {index + 1}) {value.question}{" "}
@@ -152,7 +160,12 @@ function Create() {
             <p> c) {value.answers[2]} </p>
             <p> d) {value.answers[3]} </p>
             <p> Correct Answer: {value.answer} </p>
-            <Button variant="contained" onClick={deleteQuestion} value={index}>
+            <Button
+              variant="contained"
+              onClick={deleteQuestion}
+              value={index}
+              style={{ backgroundColor: style.colors.pink }}
+            >
               Delete
             </Button>
           </Paper>
@@ -207,7 +220,7 @@ function Create() {
 
   const loggedInView = () => {
     return (
-      <Paper>
+      <Paper elevation={5} style={{ backgroundColor: style.colors.yellow }}>
         <Grid
           container
           direction="column"
@@ -233,11 +246,14 @@ function Create() {
 
   const loggedOutView = () => {
     return (
-      <div>
-        <Alert severity="info" style={{ backgroundColor: style.colors.yellow }}>
+      <Grid item>
+        <Alert
+          severity="info"
+          style={{ backgroundColor: style.colors.yellow, width: "80vw" }}
+        >
           Please Login to create a game!
         </Alert>
-      </div>
+      </Grid>
     );
   };
 
@@ -251,13 +267,22 @@ function Create() {
 
   return (
     <Layout>
-      <Grid container direction="column" justify="center" alignItems="center">
+      <Grid
+        container
+        direction="column"
+        justify="center"
+        alignItems="center"
+        style={{ padding: "20px 20px 20px 20px" }}
+      >
         {checkLogin()}
         <br />
         <p></p>
+        {!context.loggedIn ? (
+          <ResponsiveImage src={QuestionImg} width={300} height={200} />
+        ) : null}
         {displayInputAlert && displayInvalidinputAlert()}
         {showQuestions && displayQuestions()}
-        <div style={{ height: "80vh" }} />
+        <div style={{ height: "40vh" }} />
       </Grid>
     </Layout>
   );

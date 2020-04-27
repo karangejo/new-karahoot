@@ -11,4 +11,8 @@ export const style = {
     pink: "#DC2ADE",
     yellow: "#E8F044",
   },
+  navIcons: {
+    color: "#DC2ADE",
+    fontSize: "40px"
+  },
 };

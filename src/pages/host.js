@@ -5,6 +5,7 @@ import Alert from "@material-ui/lab/Alert";
 import { UserContext } from "./../userContext";
 import HostDisplay from "./../components/hostDisplay";
 import Layout from "./../components/layout";
+import { style } from "./../styles";
 
 function Host() {
   const context = useContext(UserContext);
@@ -36,7 +37,9 @@ function Host() {
   const loggedOutView = () => {
     return (
       <div>
-        <Alert severity="info">Please Login to host a game!</Alert>
+        <Alert severity="info" style={{ backgroundColor: style.colors.yellow }}>
+          Please Login to host a game!
+        </Alert>
       </div>
     );
   };

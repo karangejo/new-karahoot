@@ -2,15 +2,17 @@ import React, { useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import { Paper } from "@material-ui/core";
 import Countdown from "react-countdown-now";
+import { style } from "./../styles";
 
 // needs some props set
 function QuestionsPrompt(props) {
+  const { timeLimit, timeUp } = props;
   useEffect(() => {
     console.log("calling setTimeout");
     setTimeout(() => {
-      props.timeUp();
-    }, props.timeLimit * 1000);
-  }, [props.timeUp, props.timeLimit]);
+      timeUp();
+    }, timeLimit * 1000);
+  }, [timeUp, timeLimit]);
 
   const renderer = ({ hours, minutes, seconds, completed }) => {
     // Render a countdown
@@ -25,7 +27,7 @@ function QuestionsPrompt(props) {
       alignItems="center"
       style={{ padding: "20px 20px 20px 20px" }}
     >
-      <Paper>
+      <Paper elevation={5} style={{ backgroundColor: style.colors.yellow }}>
         <Grid
           container
           direction="column"

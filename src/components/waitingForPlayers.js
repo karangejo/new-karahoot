@@ -8,16 +8,17 @@ import { style } from "../styles";
 function WaitingForPlayers(props) {
   const [players, setPlayers] = useState([]);
 
+  const { socket, addPlayer } = props;
   useEffect(() => {
-    props.socket.on("newPlayer", (name) => {
+    socket.on("newPlayer", (name) => {
       console.log("new player joined named: " + name);
       console.log(players);
       const newPlayers = players.concat(name);
       console.log(newPlayers);
       setPlayers(newPlayers);
-      props.addPlayer(newPlayers);
+      addPlayer(newPlayers);
     });
-  }, [players, setPlayers]);
+  }, [addPlayer, socket, players, setPlayers]);
 
   const startQuestions = () => {
     props.startQuestions();
@@ -25,7 +26,11 @@ function WaitingForPlayers(props) {
 
   const displayPlayers = () => {
     const playerItems = players.map((name, index) => {
-      return <p key={index}>{name}</p>;
+      return (
+        <Grid item>
+          <p key={index}>{name}</p>
+        </Grid>
+      );
     });
     return (
       <Paper style={{ backgroundColor: style.colors.pink }}>
@@ -34,6 +39,7 @@ function WaitingForPlayers(props) {
           direction="column"
           justify="center"
           alignItems="center"
+          spacing={1}
           style={{ padding: "20px 20px 20px 20px" }}
         >
           {playerItems}
@@ -57,14 +63,25 @@ function WaitingForPlayers(props) {
             direction="column"
             justify="center"
             alignItems="center"
+            spacing={1}
             style={{ padding: "20px 20px 20px 20px" }}
           >
-            <h3>Please enter the following number to play:</h3>
-            <h3>{props.roomId}</h3>
-            <Button variant="contained" onClick={startQuestions}>
-              Start Game
-            </Button>
-            {!(players.length <= 0) && displayPlayers()}
+            <Grid item>
+              <h3>Please enter the following number to play:</h3>
+            </Grid>
+            <Grid item>
+              <h3>{props.roomId}</h3>
+            </Grid>
+            <Grid item>
+              <Button
+                variant="contained"
+                onClick={startQuestions}
+                style={{ backgroundColor: style.colors.pink }}
+              >
+                Start Game
+              </Button>
+            </Grid>
+            <Grid item>{!(players.length <= 0) && displayPlayers()}</Grid>
           </Grid>
         </Paper>
       </Grid>

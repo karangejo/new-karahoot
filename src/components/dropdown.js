@@ -10,7 +10,7 @@ export default function Dropdown(props) {
 
   useEffect(() => {
     setQuestions(props.questions);
-  });
+  }, [props.questions]);
 
   const handleChange = (event) => {
     setAnswer(event.target.value);

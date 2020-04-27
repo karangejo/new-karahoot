@@ -4,6 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { Paper } from "@material-ui/core";
 import Dropdown from "./dropdown";
+import { style } from "./../styles";
 
 function CreateForm(props) {
   const [one, setOne] = useState("");
@@ -33,7 +34,13 @@ function CreateForm(props) {
   };
 
   return (
-    <Paper style={{ padding: "20x 20x 20x 20x" }}>
+    <Paper
+      elevation={10}
+      style={{
+        padding: "20x 20x 20x 20x",
+        backgroundColor: style.colors.yellow,
+      }}
+    >
       <form noValidate autoComplete="off">
         <Grid
           container
@@ -121,12 +128,22 @@ function CreateForm(props) {
           <Dropdown questions={answers} handleAnswer={handleAnswer} /> <br />
         </Grid>
         <Grid item>
-          <Button variant="contained" onClick={addQuestion}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={addQuestion}
+            style={{ backgroundColor: style.colors.pink }}
+          >
             Add Question
           </Button>
         </Grid>
         <Grid item>
-          <Button variant="contained" onClick={saveTest}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={saveTest}
+            style={{ backgroundColor: style.colors.pink }}
+          >
             Save Game
           </Button>
         </Grid>

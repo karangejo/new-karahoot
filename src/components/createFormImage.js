@@ -5,6 +5,8 @@ import Button from "@material-ui/core/Button";
 import { Paper } from "@material-ui/core";
 import Dropdown from "./dropdown";
 import UploadFile from "./uploadFile";
+import { style } from "./../styles";
+
 //import axios from  'axios';
 
 // needs to be edited to accept a background image and answer images
@@ -44,7 +46,13 @@ function CreateImageForm(props) {
   };
 
   return (
-    <Paper style={{ padding: "20x 20x 20x 20x" }}>
+    <Paper
+      elevation={10}
+      style={{
+        backgroundColor: style.colors.yellow,
+        padding: "20x 20x 20x 20x",
+      }}
+    >
       <form noValidate autoComplete="off">
         <Grid
           container
@@ -94,12 +102,22 @@ function CreateImageForm(props) {
           <br />
         </Grid>
         <Grid item>
-          <Button variant="contained" onClick={addQuestion}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={addQuestion}
+            style={{ backgroundColor: style.colors.pink }}
+          >
             Add Question
           </Button>
         </Grid>
         <Grid item>
-          <Button variant="contained" onClick={saveTest}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={saveTest}
+            style={{ backgroundColor: style.colors.pink }}
+          >
             Save Game
           </Button>
         </Grid>

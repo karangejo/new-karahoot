@@ -3,6 +3,7 @@ import { GoogleLogin, GoogleLogout } from "react-google-login";
 import axios from "axios";
 import { UserContext } from "./../userContext";
 import { style } from "../styles";
+import { Paper } from "@material-ui/core";
 
 function Login() {
   const context = useContext(UserContext);
@@ -16,6 +17,23 @@ function Login() {
           onSuccess={responseGoogle}
           onFailure={responseGoogle}
           cookiePolicy={"single_host_origin"}
+          render={(renderProps) => (
+            <Paper
+              elevation={10}
+              onClick={renderProps.onClick}
+              disabled={renderProps.disabled}
+              style={{
+                backgroundColor: style.colors.pink,
+                border: "none",
+                fontFamily: "Barrio",
+                fontSize: "30px",
+                color: style.colors.yellow,
+                width: "90px",
+              }}
+            >
+              Login
+            </Paper>
+          )}
         />
       </div>
     );
@@ -28,6 +46,23 @@ function Login() {
           clientId="687641367817-phvujd6f7h6cs69sobr0hbjkme4kodt1.apps.googleusercontent.com"
           buttonText="Logout"
           onLogoutSuccess={logout}
+          render={(renderProps) => (
+            <Paper
+              elevation={10}
+              onClick={renderProps.onClick}
+              disabled={renderProps.disabled}
+              style={{
+                backgroundColor: style.colors.pink,
+                border: "none",
+                fontFamily: "Barrio",
+                fontSize: "30px",
+                color: style.colors.yellow,
+                width: "120px",
+              }}
+            >
+              Logout
+            </Paper>
+          )}
         ></GoogleLogout>
       </div>
     );

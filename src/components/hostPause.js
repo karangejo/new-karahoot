@@ -2,6 +2,7 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import { Paper } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
+import { style } from "./../styles";
 
 // needs some props set
 function HostPause(props) {
@@ -41,7 +42,7 @@ function HostPause(props) {
         alignItems="center"
         style={{ padding: "20px 20px 20px 20px" }}
       >
-        <Paper>
+        <Paper elevation={5} style={{ backgroundColor: style.colors.yellow }}>
           <Grid
             container
             direction="column"

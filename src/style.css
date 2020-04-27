@@ -1,6 +1,16 @@
-/* 
-deep purple #4d089a
-school blue #323edd
-happy pink #DC2ADE
-bright yellow #E8F044
-*/
+@import url("https://fonts.googleapis.com/css2?family=Barrio&family=Flavors&family=Fredoka+One&family=Rye&display=swap");
+
+h1 {
+  font-family: Barrio;
+  font-size: 12vw;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-family: Fredoka one;
+  color: #4d089a;
+}

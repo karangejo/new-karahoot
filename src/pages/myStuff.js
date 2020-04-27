@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
 import Grid from "@material-ui/core/Grid";
 import Alert from "@material-ui/lab/Alert";
-import Navbar from "./../components/navbar";
 import TestDisplay from "./../components/testDisplay";
 import { UserContext } from "./../userContext";
 import Layout from "../components/layout";
 import { style } from "../styles";
+import QuestionImg from "../images/question.png";
+import ResponsiveImage from "./../components/responsiveImage";
 
 function MyStuff() {
   const context = useContext(UserContext);
@@ -20,11 +21,17 @@ function MyStuff() {
 
   const loggedOutView = () => {
     return (
-      <div>
-        <Alert severity="info" style={{ backgroundColor: style.colors.yellow }}>
+      <Grid container direction="column">
+        <Alert
+          severity="info"
+          style={{ backgroundColor: style.colors.yellow, width: "80vw" }}
+        >
           Please Login to see your games!
         </Alert>
-      </div>
+        <br />
+        <p></p>
+        <ResponsiveImage src={QuestionImg} width={300} height={200} />
+      </Grid>
     );
   };
 

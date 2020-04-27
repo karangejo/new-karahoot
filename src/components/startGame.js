@@ -53,7 +53,7 @@ function StartGame(props) {
                 text="Time Limit"
                 questions={timeLimitOptions}
                 handleAnswer={handleAnswer}
-                style={{ width: "15vw" }}
+                style={{ width: "30vw" }}
               />
             </Grid>
           </Grid>

@@ -20,7 +20,11 @@ function TestList(props) {
     const items = props.tests.map((value, index) => {
       return (
         <Grid item key={index}>
-          <Paper key={index} style={{ backgroundColor: style.colors.yellow }}>
+          <Paper
+            key={index}
+            elevation={5}
+            style={{ backgroundColor: style.colors.yellow }}
+          >
             <Grid
               container
               spacing={3}

@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Alert from "@material-ui/lab/Alert";
+import { style } from "./../styles";
 
 function UploadFile(props) {
-  const [files, setFiles] = useState([]);
+  //const [files, setFiles] = useState([]);
   const [fileNames, setFileNames] = useState([]);
   const [displayNotEnoughFiles, setNotEnoughFiles] = useState(false);
   const [displayImageWarning, setDisplayImageWarning] = useState(false);
@@ -42,7 +43,7 @@ function UploadFile(props) {
   };
 
   const changedFile = (event) => {
-    setFiles([]);
+    //setFiles([]);
     props.setFiles([]);
     setFileNames([]);
     const uploadedFiles = event.target.files;
@@ -54,7 +55,7 @@ function UploadFile(props) {
       } else {
         setNotEnoughFiles(false);
         getNamesFromFiles(fileArray);
-        setFiles(fileArray);
+        //setFiles(fileArray);
         props.setFiles(fileArray);
       }
     } else {
@@ -64,20 +65,28 @@ function UploadFile(props) {
 
   const displayNotImageWarning = () => {
     return displayImageWarning ? (
-      <Alert severity="info">Please upload image files.</Alert>
+      <Alert severity="info" style={{ backgroundColor: style.colors.yellow }}>
+        Please upload image files.
+      </Alert>
     ) : null;
   };
 
   const displayNotEnough = () => {
     return displayNotEnoughFiles ? (
-      <Alert severity="info">Not enough files. Please upload 4 files.</Alert>
+      <Alert severity="info" style={{ backgroundColor: style.colors.yellow }}>
+        Not enough files. Please upload 4 files.
+      </Alert>
     ) : null;
   };
 
   const displayFileNames = () => {
     const items = fileNames.map((value, index) => {
       return (
-        <Alert key={index} severity="success">
+        <Alert
+          key={index}
+          severity="success"
+          style={{ backgroundColor: style.colors.yellow }}
+        >
           {value}
         </Alert>
       );
@@ -97,7 +106,12 @@ function UploadFile(props) {
           type="file"
         />
         <label htmlFor="raised-button-file">
-          <Button variant="contained" color="primary" component="span">
+          <Button
+            variant="contained"
+            color="primary"
+            component="span"
+            style={{ backgroundColor: style.colors.pink }}
+          >
             Choose
           </Button>
         </label>

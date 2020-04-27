@@ -3,6 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import { Paper } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router-dom";
+import { style } from "./../styles";
 
 // needs some props set
 function PlayerFinishedGame(props) {
@@ -44,7 +45,7 @@ function PlayerFinishedGame(props) {
         alignItems="center"
         style={{ padding: "20px 20px 20px 20px" }}
       >
-        <Paper>
+        <Paper elevation={5} style={{ backgroundColor: style.colors.yellow }}>
           <Grid
             container
             direction="column"
@@ -54,7 +55,11 @@ function PlayerFinishedGame(props) {
           >
             <h2>Game Finished</h2>
             {playerScoreItems(props.scores)}
-            <Button variant="contained" onClick={goBack}>
+            <Button
+              variant="contained"
+              onClick={goBack}
+              style={{ backgroundColor: style.colors.pink }}
+            >
               My Games
             </Button>
           </Grid>
