@@ -4,13 +4,13 @@ Multiplayer quiz engine for the web. Designed for classroom use and also for ear
 
 ### Homepage
 
-![preview1](./images/QuizzazHomePage.png)
+![preview1](./png/QuizzazHomePage.png)
 
 ### Game play
 
-![preview1](./images/QuizzazSignUp.png)
+![preview1](./png/QuizzazSignUp.png)
 
-![preview1](./images/QuizzazGamePlayPics.png)
+![preview1](./png/QuizzazGamePlayPics.png)
 
 ## Local Development
 
