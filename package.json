@@ -27,11 +27,14 @@
     "uuid": "^7.0.2"
   },
   "scripts": {
-    "startall": "react-scripts start; nodemon ./backends/mongoRESTserver.js; nodemon ./backends/socketIOServer.js; nodemon ./backends/fileUpload.js; http-server backends/images/",
+    "startall": "react-scripts start",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "servers": "nodemon ./backends/mongoRESTserver.js & nodemon ./backends/socketIOServer.js & nodemon ./backends/fileUpload.js",
+    "fileserver": "http-server backends/images/"
+
   },
   "eslintConfig": {
     "extends": "react-app"

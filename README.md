@@ -1,6 +1,16 @@
 ## Quizzaz
 
-multiplayer quiz engine for the web.
+Multiplayer quiz engine for the web. Designed for classroom use and also for early learners who cannot yet read. Inspired by Kahoot.
+
+### Homepage
+
+![preview1](./images/QuizzazHomePage.png)
+
+### Game play
+
+![preview1](./images/QuizzazSignUp.png)
+
+![preview1](./images/QuizzazGamePlayPics.png)
 
 ## Local Development
 
@@ -8,7 +18,14 @@ clone this repo and run the following
 
 ```bash
 npm install
-npm run startall
+npm run start
+```
+
+then open two more terminals and run this:
+
+```bash
+npm run servers
+npm run fileserver
 ```
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
